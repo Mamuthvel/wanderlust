@@ -148,7 +148,7 @@ const PropertyList = () => {
                     <SelectValue placeholder="All types" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All types</SelectItem>
+                    <SelectItem value="all">All types</SelectItem>
                     <SelectItem value="hotel">Hotel</SelectItem>
                     <SelectItem value="resort">Resort</SelectItem>
                     <SelectItem value="apartment">Apartment</SelectItem>
