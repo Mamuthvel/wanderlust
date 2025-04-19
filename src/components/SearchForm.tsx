@@ -31,7 +31,6 @@ const SearchForm = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     
-    // In a real app, this would navigate to search results with these parameters
     console.log({
       location,
       checkIn,
@@ -56,7 +55,10 @@ const SearchForm = () => {
             <Input
               id="location"
               placeholder="Enter a destination"
-              className="pl-8"
+              className={cn(
+                "pl-8", 
+                location ? "text-black" : "text-muted-foreground"
+              )}
               value={location}
               onChange={(e) => setLocation(e.target.value)}
             />
@@ -72,7 +74,7 @@ const SearchForm = () => {
                 variant="outline"
                 className={cn(
                   "w-full justify-start text-left font-normal",
-                  !checkIn && "text-muted-foreground"
+                  !checkIn ? "text-muted-foreground" : "text-black"
                 )}
               >
                 <CalendarIcon className="mr-2 h-4 w-4" />
@@ -100,7 +102,7 @@ const SearchForm = () => {
                 variant="outline"
                 className={cn(
                   "w-full justify-start text-left font-normal",
-                  !checkOut && "text-muted-foreground"
+                  !checkOut ? "text-muted-foreground" : "text-black"
                 )}
               >
                 <CalendarIcon className="mr-2 h-4 w-4" />
@@ -128,7 +130,12 @@ const SearchForm = () => {
           <Button
             type="button"
             variant="outline"
-            className="w-full justify-start text-left font-normal"
+            className={cn(
+              "w-full justify-start text-left font-normal",
+              guests.adults + guests.children !== 1 || guests.rooms !== 1 
+                ? "text-black" 
+                : "text-muted-foreground"
+            )}
             onClick={() => setIsGuestsOpen(!isGuestsOpen)}
           >
             <Users className="mr-2 h-4 w-4" />
@@ -218,3 +225,4 @@ const GuestCounter = ({ label, value, onIncrement, onDecrement }) => (
 );
 
 export default SearchForm;
+
