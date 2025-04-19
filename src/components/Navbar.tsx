@@ -38,10 +38,17 @@ const Navbar = () => {
             <Button variant="ghost" className="text-white hover:bg-booking-darkBlue">
               List your property
             </Button>
-            <Button className="bg-white text-booking-blue hover:bg-gray-100">
-              <User className="mr-2 h-4 w-4" />
-              Sign in
-            </Button>
+            <Link to="/signup">
+              <Button variant="ghost" className="text-white hover:bg-booking-darkBlue">
+                Sign up
+              </Button>
+            </Link>
+            <Link to="/signin">
+              <Button className="bg-white text-booking-blue hover:bg-gray-100">
+                <User className="mr-2 h-4 w-4" />
+                Sign in
+              </Button>
+            </Link>
           </div>
         </div>
 
@@ -59,10 +66,17 @@ const Navbar = () => {
               <Button variant="ghost" className="w-full justify-start text-white hover:bg-booking-darkBlue">
                 List your property
               </Button>
-              <Button className="w-full justify-start bg-white text-booking-blue hover:bg-gray-100">
-                <User className="mr-2 h-4 w-4" />
-                Sign in
-              </Button>
+              <Link to="/signup">
+                <Button variant="ghost" className="w-full justify-start text-white hover:bg-booking-darkBlue">
+                  Sign up
+                </Button>
+              </Link>
+              <Link to="/signin">
+                <Button className="w-full justify-start bg-white text-booking-blue hover:bg-gray-100">
+                  <User className="mr-2 h-4 w-4" />
+                  Sign in
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
