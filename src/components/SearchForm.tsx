@@ -8,8 +8,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { 
-  Search as SearchIcon, 
+import {
+  Search as SearchIcon,
   Calendar as CalendarIcon,
   Users
 } from "lucide-react";
@@ -29,7 +29,7 @@ const SearchForm = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    
+
     console.log({
       location,
       checkIn,
@@ -37,10 +37,16 @@ const SearchForm = () => {
       guests
     });
   };
-
+  const resetGuest = () => {
+    setGuests({
+      adults: 0,
+      children: 0,
+      rooms: 0
+    })
+  }
   return (
-    <form 
-      onSubmit={handleSearch} 
+    <form
+      onSubmit={handleSearch}
       className="w-full bg-white p-4 rounded-lg shadow-md"
     >
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
@@ -55,7 +61,7 @@ const SearchForm = () => {
               id="location"
               placeholder="Enter a destination"
               className={cn(
-                "pl-8", 
+                "pl-8",
                 location ? "text-black" : "text-muted-foreground"
               )}
               value={location}
@@ -114,7 +120,7 @@ const SearchForm = () => {
                 selected={checkOut}
                 onSelect={setCheckOut}
                 initialFocus
-                disabled={(date) => 
+                disabled={(date) =>
                   date < new Date() || (checkIn && date <= checkIn)
                 }
                 className={cn("p-3 pointer-events-auto")}
@@ -131,8 +137,8 @@ const SearchForm = () => {
             variant="outline"
             className={cn(
               "w-full justify-start text-left font-normal",
-              guests.adults + guests.children !== 1 || guests.rooms !== 1 
-                ? "text-black" 
+              guests.adults + guests.children !== 1 || guests.rooms !== 1
+                ? "text-black"
                 : "text-muted-foreground"
             )}
             onClick={() => setIsGuestsOpen(!isGuestsOpen)}
@@ -149,44 +155,52 @@ const SearchForm = () => {
                 <GuestCounter
                   label="Adults"
                   value={guests.adults}
-                  onIncrement={() => setGuests({...guests, adults: guests.adults + 1})}
-                  onDecrement={() => 
-                    setGuests({...guests, adults: Math.max(1, guests.adults - 1)})
+                  onIncrement={() => setGuests({ ...guests, adults: guests.adults + 1 })}
+                  onDecrement={() =>
+                    setGuests({ ...guests, adults: Math.max(1, guests.adults - 1) })
                   }
                 />
                 <GuestCounter
                   label="Children"
                   value={guests.children}
-                  onIncrement={() => setGuests({...guests, children: guests.children + 1})}
-                  onDecrement={() => 
-                    setGuests({...guests, children: Math.max(0, guests.children - 1)})
+                  onIncrement={() => setGuests({ ...guests, children: guests.children + 1 })}
+                  onDecrement={() =>
+                    setGuests({ ...guests, children: Math.max(0, guests.children - 1) })
                   }
                 />
                 <GuestCounter
                   label="Rooms"
                   value={guests.rooms}
-                  onIncrement={() => setGuests({...guests, rooms: guests.rooms + 1})}
-                  onDecrement={() => 
-                    setGuests({...guests, rooms: Math.max(1, guests.rooms - 1)})
+                  onIncrement={() => setGuests({ ...guests, rooms: guests.rooms + 1 })}
+                  onDecrement={() =>
+                    setGuests({ ...guests, rooms: Math.max(1, guests.rooms - 1) })
                   }
                 />
-                
-                <Button 
-                  type="button" 
-                  onClick={() => setIsGuestsOpen(false)}
-                  className="w-full mt-2 bg-booking-blue text-white hover:bg-booking-darkBlue"
-                >
-                  Done
-                </Button>
+                <div className="flex gap-2 justify-center">
+                  <Button
+                    type="button"
+                    onClick={() => resetGuest()}
+                    className=" mt-1 bg-booking-blue text-white hover:bg-booking-darkBlue"
+                  >
+                    Reset
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={() => setIsGuestsOpen(false)}
+                    className=" mt-1 bg-booking-blue text-white hover:bg-booking-darkBlue"
+                  >
+                    Done
+                  </Button>
+                </div>
               </div>
             </div>
           )}
         </div>
       </div>
-      
+
       {/* Search button */}
-      <Button 
-        type="submit" 
+      <Button
+        type="submit"
         className="w-full mt-4 bg-booking-blue hover:bg-booking-darkBlue text-white"
       >
         <SearchIcon className="mr-2 h-4 w-4" />
@@ -197,24 +211,24 @@ const SearchForm = () => {
 };
 
 const GuestCounter = ({ label, value, onIncrement, onDecrement }) => (
-  <div className="flex items-center justify-between">
-    <span>{label}</span>
-    <div className="flex items-center space-x-2">
+  <div className="flex items-center justify-between gap-2">
+    <span className="text-black text-sm">{label}</span>
+    <div className="flex items-center">
       <Button
         type="button"
         size="sm"
         variant="outline"
-        className="h-8 w-8 p-0"
+        className="h-7 w-7 p-0 text-black"
         onClick={onDecrement}
       >
         -
       </Button>
-      <span className="w-6 text-center">{value}</span>
+      <span className="w-6 text-center text-black text-sm">{value}</span>
       <Button
         type="button"
         size="sm"
         variant="outline"
-        className="h-8 w-8 p-0"
+        className="h-7 w-7 p-0 text-black"
         onClick={onIncrement}
       >
         +

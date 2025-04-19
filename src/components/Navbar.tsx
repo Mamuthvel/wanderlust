@@ -13,8 +13,8 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <Link to="/" className="text-2xl font-bold">
-            WanderStay
+          <Link to="/" className="text-2xl font-bold m-0">
+            WanderStay<br/><span className="text-sm font-bold flex justify-end">Tiruvannamalai</span>
           </Link>
 
           {/* Mobile menu button */}

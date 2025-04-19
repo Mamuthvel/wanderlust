@@ -26,11 +26,11 @@ const SignIn = () => {
         <div className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
           <div className="w-full max-w-sm">
             <div className="mb-8">
-              <Link 
-                to="/" 
+            <Link
+                to="/"
                 className="text-2xl font-bold text-booking-blue mb-2 hover:text-booking-darkBlue"
               >
-                WanderStay
+                WanderStay<span className="text-sm font-bold flex justify-end">Tiruvannamalai</span>
               </Link>
               <h2 className="mt-6 text-2xl font-bold text-gray-900">
                 Welcome back

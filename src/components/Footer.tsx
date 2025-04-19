@@ -14,8 +14,8 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="font-bold text-lg mb-4">WanderStay</h3>
-            <p className="text-gray-500 mb-4">
+          <h3 className="font-bold text-lg mb-4">WanderStay<br/><span className="text-sm font-bold flex">Tiruvannamalai</span>
+          </h3> <p className="text-gray-500 mb-4">
               Making travel planning easy and enjoyable with the best deals on accommodations worldwide.
             </p>
             <div className="flex space-x-4">
