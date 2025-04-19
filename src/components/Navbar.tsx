@@ -1,6 +1,6 @@
 
 import { Link } from "react-router-dom";
-import { Bed, Car, Airplane, Landmark, User, Menu } from "lucide-react";
+import { Bed, Car, PlaneTakeoff, Landmark, User, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -28,7 +28,7 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
             <NavItem icon={<Bed size={18} />} label="Stays" active />
-            <NavItem icon={<Airplane size={18} />} label="Flights" />
+            <NavItem icon={<PlaneTakeoff size={18} />} label="Flights" />
             <NavItem icon={<Car size={18} />} label="Car Rentals" />
             <NavItem icon={<Landmark size={18} />} label="Attractions" />
           </div>
@@ -52,7 +52,7 @@ const Navbar = () => {
         )}>
           <div className="flex flex-col space-y-2 pb-4">
             <MobileNavItem icon={<Bed size={18} />} label="Stays" active />
-            <MobileNavItem icon={<Airplane size={18} />} label="Flights" />
+            <MobileNavItem icon={<PlaneTakeoff size={18} />} label="Flights" />
             <MobileNavItem icon={<Car size={18} />} label="Car Rentals" />
             <MobileNavItem icon={<Landmark size={18} />} label="Attractions" />
             <div className="border-t border-booking-darkBlue pt-2 mt-2 space-y-2">
