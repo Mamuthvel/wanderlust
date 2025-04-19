@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -145,7 +144,7 @@ const SearchForm = () => {
           </Button>
 
           {isGuestsOpen && (
-            <div className="absolute top-full left-0 mt-1 w-full bg-white shadow-lg rounded-md p-4 z-10">
+            <div className="absolute top-full left-0 mt-1 w-full bg-white shadow-lg rounded-md p-4 z-50">
               <div className="space-y-4">
                 <GuestCounter
                   label="Adults"
@@ -225,4 +224,3 @@ const GuestCounter = ({ label, value, onIncrement, onDecrement }) => (
 );
 
 export default SearchForm;
-
