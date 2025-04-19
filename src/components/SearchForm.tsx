@@ -144,7 +144,7 @@ const SearchForm = () => {
           </Button>
 
           {isGuestsOpen && (
-            <div className="absolute top-full left-0 mt-1 w-full bg-white shadow-lg rounded-md p-4 z-50">
+            <div className="absolute top-full left-0 mt-1 w-full bg-white shadow-lg rounded-md p-4 z-50 border">
               <div className="space-y-4">
                 <GuestCounter
                   label="Adults"
@@ -174,7 +174,7 @@ const SearchForm = () => {
                 <Button 
                   type="button" 
                   onClick={() => setIsGuestsOpen(false)}
-                  className="w-full"
+                  className="w-full mt-2 bg-booking-blue text-white hover:bg-booking-darkBlue"
                 >
                   Done
                 </Button>
