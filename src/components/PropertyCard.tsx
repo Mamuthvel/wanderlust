@@ -1,7 +1,7 @@
-
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Star } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export interface PropertyProps {
   id: number;
@@ -83,9 +83,11 @@ const PropertyCard = ({ property }: { property: PropertyProps }) => {
                   ${price}
                 </div>
                 <p className="text-sm text-muted-foreground">per night</p>
-                <button className="mt-2 bg-booking-blue hover:bg-booking-darkBlue text-white px-4 py-2 rounded text-sm font-medium">
-                  See availability
-                </button>
+                <Link to="/see-availability">
+                  <button className="mt-2 bg-booking-blue hover:bg-booking-darkBlue text-white px-4 py-2 rounded text-sm font-medium">
+                    See availability
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
