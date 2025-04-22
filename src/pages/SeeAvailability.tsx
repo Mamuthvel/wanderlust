@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -9,6 +8,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { format } from "date-fns";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { DateRange } from "react-day-picker";
 
 interface Room {
   id: number;
@@ -109,7 +109,10 @@ function AvailabilityResults({
 }
 
 const SeeAvailability = () => {
-  const [date, setDate] = useState<{ from?: Date; to?: Date }>({});
+  const [date, setDate] = useState<DateRange | undefined>({ 
+    from: undefined,
+    to: undefined 
+  });
   const [guests, setGuests] = useState<number>(2);
   const [results, setResults] = useState<Room[] | null>(null);
 
@@ -138,10 +141,10 @@ const SeeAvailability = () => {
               <PopoverTrigger asChild>
                 <Button
                   variant={"outline"}
-                  className={`justify-start font-normal w-full ${!date.from ? "text-muted-foreground" : ""}`}
+                  className={`justify-start font-normal w-full ${!date?.from ? "text-muted-foreground" : ""}`}
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
-                  {date.from && date.to
+                  {date?.from && date?.to
                     ? `${format(date.from, "PP")} - ${format(date.to, "PP")}`
                     : <span>Pick dates</span>}
                 </Button>
@@ -180,7 +183,7 @@ const SeeAvailability = () => {
             <Button
               className="w-full bg-booking-blue hover:bg-booking-darkBlue"
               type="submit"
-              disabled={!date.from || !date.to || guests < 1}
+              disabled={!date?.from || !date?.to || guests < 1}
             >
               See Rooms
             </Button>
