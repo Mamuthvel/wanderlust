@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ChevronLeft, ChevronRight, Landmark } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const destinations = [
   {
@@ -11,7 +11,8 @@ const destinations = [
     name: "New York",
     country: "United States",
     properties: 1423,
-    imageUrl: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=500&auto=format&fit=crop&q=60"
+    imageUrl: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=500&auto=format&fit=crop&q=60",
+    urlSlug: "new-york"
   },
   {
     id: 2,
@@ -52,6 +53,7 @@ const destinations = [
 
 const FeaturedDestinations = () => {
   const carouselRef = useRef(null);
+  const navigate = useNavigate();
 
   const scrollCarousel = (direction) => {
     if (carouselRef.current) {
@@ -105,7 +107,8 @@ const FeaturedDestinations = () => {
           {destinations.map((destination) => (
             <Card 
               key={destination.id} 
-              className="min-w-[240px] md:min-w-[280px] flex-none snap-start hover:-translate-y-1 transition-transform duration-300"
+              className="min-w-[240px] md:min-w-[280px] flex-none snap-start hover:-translate-y-1 transition-transform duration-300 cursor-pointer"
+              onClick={() => navigate(destination.urlSlug ? `/destination/${destination.urlSlug}` : "/see-availability")}
             >
               <CardContent className="p-0">
                 <div className="relative h-48 overflow-hidden rounded-t-lg">

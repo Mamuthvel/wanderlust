@@ -16,6 +16,7 @@ interface Destination {
   imageUrl: string;
   description: string;
   category: string;
+  urlSlug?: string;
 }
 
 const destinations: Destination[] = [
@@ -26,7 +27,8 @@ const destinations: Destination[] = [
     properties: 1423,
     imageUrl: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=500&auto=format&fit=crop&q=60",
     description: "Experience the vibrant atmosphere of the city that never sleeps.",
-    category: "Urban"
+    category: "Urban",
+    urlSlug: "new-york"
   },
   {
     id: 2,
@@ -189,7 +191,7 @@ const ExploreDestinations = () => {
               <Card 
                 key={destination.id} 
                 className="overflow-hidden hover:-translate-y-1 transition-transform duration-300 cursor-pointer"
-                onClick={() => navigate("/see-availability")}
+                onClick={() => navigate(destination.urlSlug ? `/destination/${destination.urlSlug}` : "/see-availability")}
               >
                 <CardContent className="p-0">
                   <div className="relative h-48 overflow-hidden">
@@ -218,11 +220,11 @@ const ExploreDestinations = () => {
                       className="w-full bg-booking-blue hover:bg-booking-darkBlue"
                       onClick={(e) => {
                         e.stopPropagation();
-                        navigate("/see-availability");
+                        navigate(destination.urlSlug ? `/destination/${destination.urlSlug}` : "/see-availability");
                       }}
                     >
                       <Landmark className="h-4 w-4 mr-2" />
-                      View Properties
+                      {destination.urlSlug ? "View Destination" : "View Properties"}
                     </Button>
                   </div>
                 </CardContent>
