@@ -2,7 +2,8 @@
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Landmark } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const destinations = [
   {
@@ -71,11 +72,12 @@ const FeaturedDestinations = () => {
       <div className="container mx-auto">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold">Explore destinations</h2>
-          <div className="flex space-x-2">
+          <div className="flex space-x-2 items-center">
             <Button 
               variant="outline" 
               size="icon" 
               onClick={() => scrollCarousel('left')}
+              className="mr-2"
             >
               <ChevronLeft className="h-4 w-4" />
             </Button>
@@ -83,9 +85,16 @@ const FeaturedDestinations = () => {
               variant="outline" 
               size="icon" 
               onClick={() => scrollCarousel('right')}
+              className="mr-4"
             >
               <ChevronRight className="h-4 w-4" />
             </Button>
+            <Link to="/explore-destinations">
+              <Button variant="default" className="bg-booking-blue hover:bg-booking-darkBlue">
+                <Landmark className="mr-2 h-4 w-4" />
+                View All
+              </Button>
+            </Link>
           </div>
         </div>
 

@@ -27,10 +27,10 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
-            <NavItem icon={<Bed size={18} />} label="Stays" active />
-            <NavItem icon={<PlaneTakeoff size={18} />} label="Flights" />
-            <NavItem icon={<Car size={18} />} label="Car Rentals" />
-            <NavItem icon={<Landmark size={18} />} label="Attractions" />
+            <NavItem icon={<Bed size={18} />} label="Stays" path="/" active />
+            <NavItem icon={<Landmark size={18} />} label="Explore" path="/explore-destinations" />
+            <NavItem icon={<PlaneTakeoff size={18} />} label="Flights" path="/" />
+            <NavItem icon={<Car size={18} />} label="Car Rentals" path="/" />
           </div>
 
           {/* User buttons */}
@@ -58,10 +58,10 @@ const Navbar = () => {
           mobileMenuOpen ? "max-h-96" : "max-h-0"
         )}>
           <div className="flex flex-col space-y-2 pb-4">
-            <MobileNavItem icon={<Bed size={18} />} label="Stays" active />
-            <MobileNavItem icon={<PlaneTakeoff size={18} />} label="Flights" />
-            <MobileNavItem icon={<Car size={18} />} label="Car Rentals" />
-            <MobileNavItem icon={<Landmark size={18} />} label="Attractions" />
+            <MobileNavItem icon={<Bed size={18} />} label="Stays" path="/" active />
+            <MobileNavItem icon={<Landmark size={18} />} label="Explore" path="/explore-destinations" />
+            <MobileNavItem icon={<PlaneTakeoff size={18} />} label="Flights" path="/" />
+            <MobileNavItem icon={<Car size={18} />} label="Car Rentals" path="/" />
             <div className="border-t border-booking-darkBlue pt-2 mt-2 space-y-2">
               <Button variant="ghost" className="w-full justify-start text-white hover:bg-booking-darkBlue">
                 List your property
@@ -85,9 +85,9 @@ const Navbar = () => {
   );
 };
 
-const NavItem = ({ icon, label, active = false }) => (
+const NavItem = ({ icon, label, path, active = false }) => (
   <Link
-    to="/"
+    to={path}
     className={`flex items-center px-2 py-1 rounded-md ${
       active ? "bg-booking-darkBlue" : "hover:bg-booking-darkBlue"
     }`}
@@ -97,9 +97,9 @@ const NavItem = ({ icon, label, active = false }) => (
   </Link>
 );
 
-const MobileNavItem = ({ icon, label, active = false }) => (
+const MobileNavItem = ({ icon, label, path, active = false }) => (
   <Link
-    to="/"
+    to={path}
     className={`flex items-center px-2 py-3 rounded-md ${
       active ? "bg-booking-darkBlue" : "hover:bg-booking-darkBlue"
     }`}
