@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Mail, Lock, Eye, EyeOff, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { register } from "@/api/api";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -14,10 +15,18 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle sign up logic here
-    console.log("Sign up:", { name, email, password });
+    try {
+      const res = await register({ name, email, password });
+      console.log(res, 'res');
+      if (res.status === 201) {
+        navigate("/");
+      }
+    } catch (err) {
+      console.log(err)
+    }
+
   };
 
   return (
@@ -27,7 +36,7 @@ const SignUp = () => {
         <div className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
           <div className="w-full max-w-sm">
             <div className="mb-8">
-            <Link
+              <Link
                 to="/"
                 className="text-2xl font-bold text-booking-blue mb-2 hover:text-booking-darkBlue"
               >
@@ -38,8 +47,8 @@ const SignUp = () => {
               </h2>
               <p className="mt-2 text-sm text-gray-600">
                 Already have an account?{" "}
-                <Link 
-                  to="/signin" 
+                <Link
+                  to="/signin"
                   className="font-medium text-booking-blue hover:text-booking-darkBlue"
                 >
                   Sign in
