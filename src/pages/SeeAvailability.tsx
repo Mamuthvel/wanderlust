@@ -1,4 +1,6 @@
+
 import React, { useState } from "react";
+import { DateRange } from "react-day-picker";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { CalendarIcon, Bed } from "lucide-react";
@@ -8,8 +10,8 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { format } from "date-fns";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { DateRange } from "react-day-picker";
 import { isAuthenticatedRoute } from "@/utils/getToken";
+import BookingModal from "@/components/BookingModal";
 
 interface Room {
   id: number;
@@ -57,15 +59,29 @@ const mockRooms: Room[] = [
 
 function AvailabilityResults({
   availableRooms,
+  startDate,
+  endDate,
+  guestCount,
 }: {
   availableRooms: Room[];
+  startDate?: Date;
+  endDate?: Date;
+  guestCount: number;
 }) {
+  const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
   if (!availableRooms.length)
     return (
       <div className="mt-8 text-center text-muted-foreground">
         No rooms are available for the selected dates and guests.
       </div>
     );
+
+  const handleBookNow = (room: Room) => {
+    setSelectedRoom(room);
+    setIsModalOpen(true);
+  };
 
   return (
     <div className="mt-8 grid gap-6 md:grid-cols-2">
@@ -100,11 +116,28 @@ function AvailabilityResults({
               <div className="text-right">
                 <div className="text-lg font-bold text-booking-blue">${room.price}</div>
                 <div className="text-muted-foreground text-xs">per night</div>
+                <Button 
+                  onClick={() => handleBookNow(room)} 
+                  className="mt-2 bg-booking-blue hover:bg-booking-darkBlue text-white px-4 py-2 rounded text-sm font-medium"
+                >
+                  Book Now
+                </Button>
               </div>
             </div>
           </CardContent>
         </Card>
       ))}
+
+      {selectedRoom && (
+        <BookingModal
+          open={isModalOpen}
+          onOpenChange={setIsModalOpen}
+          room={selectedRoom}
+          startDate={startDate}
+          endDate={endDate}
+          guestCount={guestCount}
+        />
+      )}
     </div>
   );
 }
@@ -127,7 +160,6 @@ const SeeAvailability = () => {
       const filtered = mockRooms.filter(r => guests <= r.maxGuests);
       setResults(filtered);
     }
-
   };
 
   return (
@@ -198,7 +230,12 @@ const SeeAvailability = () => {
         </form>
         {/* Results */}
         {results !== null && (
-          <AvailabilityResults availableRooms={results} />
+          <AvailabilityResults 
+            availableRooms={results} 
+            startDate={date?.from}
+            endDate={date?.to}
+            guestCount={guests}
+          />
         )}
         {/* Optionally: Show helpful message when no results yet */}
         {results === null && (
