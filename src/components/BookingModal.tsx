@@ -8,15 +8,13 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { bookRoom } from "@/api/api";
+import { Room } from "./RoomCard";
 
 interface BookingModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  room: {
-    id: number;
-    name: string;
-    price: number;
-  };
+  room: Room;
   startDate?: Date;
   endDate?: Date;
   guestCount: number;
@@ -61,21 +59,34 @@ const BookingModal: React.FC<BookingModalProps> = ({
   const nights = calculateNights();
   const totalPrice = room.price * nights;
 
-  const onSubmit = (values: FormValues) => {
-    // In a real application, we would process the payment here
-    console.log("Booking details:", {
+  const onSubmit = async (values: FormValues) => {
+    // Create booking details object
+    const bookingDetails = {
       ...values,
       room: room.name,
+      roomId: room.id,
       nights,
       totalPrice,
       startDate,
       endDate,
       guestCount,
-    });
+    };
     
-    // Show a success message
-    alert("Booking successful! A confirmation has been sent to your email.");
-    onOpenChange(false);
+    try {
+      // Call the bookRoom API function
+      const response = await bookRoom(bookingDetails);
+      
+      if (response.success) {
+        // Show a success message
+        alert("Booking successful! A confirmation has been sent to your email.");
+        onOpenChange(false);
+      } else {
+        alert(response.message || "Error during booking. Please try again.");
+      }
+    } catch (error) {
+      alert("An unexpected error occurred. Please try again later.");
+      console.error("Booking error:", error);
+    }
   };
 
   return (
