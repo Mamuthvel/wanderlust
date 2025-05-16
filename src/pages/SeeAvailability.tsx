@@ -1,17 +1,46 @@
+
 import React, { useState } from "react";
+import { DateRange } from "react-day-picker";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { CalendarIcon, Bed } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
-import { format } from "date-fns";
-import { DateRange } from "react-day-picker";
+import AvailabilitySearchForm from "@/components/AvailabilitySearchForm";
+import AvailabilityResults from "@/components/AvailabilityResults";
 import { isAuthenticatedRoute } from "@/utils/getToken";
-import { mockRooms } from "@/utils/mockRoom";
-import { Room } from "@/utils/mockRoom";
-import AvailabilityResults from "./AvailabilityResult";
+import { Room } from "@/components/RoomCard";
+
+// Mock data moved to the main component for data management
+const mockRooms: Room[] = [
+  {
+    id: 1,
+    name: "Deluxe King Room",
+    type: "Deluxe",
+    beds: 1,
+    maxGuests: 2,
+    price: 140,
+    imageUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",
+    amenities: ["WiFi", "Ensuite Bathroom", "Breakfast"],
+  },
+  {
+    id: 2,
+    name: "Family Suite",
+    type: "Suite",
+    beds: 2,
+    maxGuests: 4,
+    price: 220,
+    imageUrl: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=600&q=80",
+    amenities: ["WiFi", "Kitchenette", "Balcony", "Breakfast"],
+  },
+  {
+    id: 3,
+    name: "Standard Queen",
+    type: "Standard",
+    beds: 1,
+    maxGuests: 2,
+    price: 99,
+    imageUrl: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80",
+    amenities: ["WiFi", "Breakfast"],
+  },
+];
 
 const SeeAvailability = () => {
   const [date, setDate] = useState<DateRange | undefined>({
@@ -31,7 +60,6 @@ const SeeAvailability = () => {
       const filtered = mockRooms.filter(r => guests <= r.maxGuests);
       setResults(filtered);
     }
-
   };
 
   return (
@@ -42,72 +70,25 @@ const SeeAvailability = () => {
         <p className="mb-8 text-muted-foreground text-lg">
           Select your dates and number of guests to view available rooms for your stay.
         </p>
-        <form className="bg-white/95 border rounded-lg shadow p-6 gap-6 flex flex-col md:flex-row md:items-end md:gap-4"
-          onSubmit={handleSubmit}
-        >
-          {/* Date Picker */}
-          <div className="w-full md:w-1/2 flex flex-col mb-2 md:mb-0">
-            <label className="block text-sm font-medium mb-2">Stay Dates</label>
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  variant={"outline"}
-                  className={`justify-start font-normal w-full ${!date?.from ? "text-muted-foreground" : ""}`}
-                >
-                  <CalendarIcon className="mr-2 h-4 w-4" />
-                  {date?.from && date?.to
-                    ? `${format(date.from, "PP")} - ${format(date.to, "PP")}`
-                    : <span>Pick dates</span>}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0 pointer-events-auto" align="start">
-                <Calendar
-                  mode="range"
-                  selected={date}
-                  onSelect={setDate}
-                  initialFocus
-                  className="p-3 pointer-events-auto"
-                  numberOfMonths={1}
-                  disabled={d =>
-                    d < new Date(
-                      new Date().toDateString()
-                    )
-                  }
-                />
-              </PopoverContent>
-            </Popover>
-          </div>
-          {/* Guests */}
-          <div className="w-full md:w-1/4 flex flex-col">
-            <label className="block text-sm font-medium mb-2">Guests</label>
-            <Input
-              type="number"
-              min={1}
-              max={8}
-              value={guests}
-              onChange={e => setGuests(Number(e.target.value))}
-              className="w-full"
-            />
-          </div>
-          {/* Button */}
-          <div className="w-full md:w-1/4 flex items-end mt-3 md:mt-0">
-            <Button
-              className="w-full bg-booking-blue hover:bg-booking-darkBlue"
-              type="submit"
-              disabled={!date?.from || !date?.to || guests < 1}
-            >
-              See Rooms
-            </Button>
-          </div>
-        </form>
+        
+        <AvailabilitySearchForm
+          date={date}
+          setDate={setDate}
+          guests={guests}
+          setGuests={setGuests}
+          onSearch={handleSubmit}
+        />
+        
         {/* Results */}
         {results !== null && (
-          <AvailabilityResults
-            availableRooms={results}
+          <AvailabilityResults 
+            availableRooms={results} 
             startDate={date?.from}
             endDate={date?.to}
-            guestCount={guests} />
+            guestCount={guests}
+          />
         )}
+        
         {/* Optionally: Show helpful message when no results yet */}
         {results === null && (
           <div className="mt-10 text-center text-muted-foreground">
