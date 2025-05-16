@@ -68,9 +68,8 @@ const SignUp = ({ handleClose, handleOpen }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-xl overflow-hidden max-w-4xl w-full mx-auto flex animate-fadeIn">
-      {/* Left side - Form */}
-      <div className="flex-1 p-8 relative">
+    <div className="bg-white rounded-lg shadow-xl overflow-hidden w-full max-w-md mx-auto animate-fadeIn">
+      <div className="p-8 relative">
         <button 
           className="absolute right-6 top-6 text-gray-500 hover:text-red-600 transition-colors" 
           onClick={() => handleClose('signUp')}
@@ -78,7 +77,7 @@ const SignUp = ({ handleClose, handleOpen }) => {
           <X size={24} />
         </button>
         
-        <div className="max-w-md mx-auto">
+        <div className="mx-auto">
           <div className="mb-6">
             <Link
               to="/"
@@ -199,21 +198,6 @@ const SignUp = ({ handleClose, handleOpen }) => {
                 Privacy Policy
               </a>
             </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Right side - Image */}
-      <div className="hidden md:block relative flex-1">
-        <img
-          src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b"
-          alt="Setup your account"
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent flex items-center">
-          <div className="px-8 text-white max-w-md">
-            <h3 className="text-2xl font-bold mb-4">Start your journey with WanderStay</h3>
-            <p className="text-white/90">Join thousands of travelers who choose WanderStay for unforgettable stays in Tiruvannamalai and beyond.</p>
           </div>
         </div>
       </div>

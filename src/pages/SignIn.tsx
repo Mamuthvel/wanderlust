@@ -39,9 +39,8 @@ const SignIn = ({ handleClose, handleOpen }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-xl overflow-hidden max-w-4xl w-full mx-auto flex animate-fadeIn">
-      {/* Left side - Form */}
-      <div className="flex-1 p-8 relative">
+    <div className="bg-white rounded-lg shadow-xl overflow-hidden w-full max-w-md mx-auto animate-fadeIn">
+      <div className="p-8 relative">
         <button 
           className="absolute right-6 top-6 text-gray-500 hover:text-red-600 transition-colors" 
           onClick={() => handleClose('signIn')}
@@ -49,7 +48,7 @@ const SignIn = ({ handleClose, handleOpen }) => {
           <X size={24} />
         </button>
         
-        <div className="max-w-md mx-auto">
+        <div className="mx-auto">
           <div className="mb-8">
             <Link
               to="/"
@@ -142,15 +141,6 @@ const SignIn = ({ handleClose, handleOpen }) => {
             </div>
           </form>
         </div>
-      </div>
-
-      {/* Right side - Image */}
-      <div className="hidden md:block relative flex-1">
-        <img
-          src="https://images.unsplash.com/photo-1630395822970-acd6a691d97e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGhvdGVsJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=80"
-          alt="Luxury hotel room"
-          className="absolute inset-0 h-full w-full object-cover"
-        />
       </div>
     </div>
   );
