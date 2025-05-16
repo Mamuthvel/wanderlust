@@ -1,137 +1,203 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Mail, Lock, Eye, EyeOff, User, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { register } from "@/api/api";
+import { register, RegisterPayload } from "@/api/api";
+import { toast } from "sonner";
+import { 
+  Form, 
+  FormControl, 
+  FormField, 
+  FormItem, 
+  FormLabel, 
+  FormMessage 
+} from "@/components/ui/form";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+// This schema matches the RegisterPayload interface
+const signUpSchema = z.object({
+  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
+  email: z.string().email({ message: "Please enter a valid email address." }),
+  password: z.string().min(6, { message: "Password must be at least 6 characters." })
+});
+
+type SignUpFormValues = z.infer<typeof signUpSchema>;
 
 const SignUp = ({ handleClose, handleOpen }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  
+  const form = useForm<SignUpFormValues>({
+    resolver: zodResolver(signUpSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      password: ""
+    }
+  });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (values: SignUpFormValues) => {
     try {
-      const res = await register({ name, email, password });
-      console.log(res, 'res');
-      if (res.status === 201) {
-        navigate("/");
+      // Explicitly cast the values as RegisterPayload to ensure type safety
+      const payload: RegisterPayload = {
+        name: values.name,
+        email: values.email,
+        password: values.password
+      };
+      
+      const res = await register(payload);
+      
+      if (res?.status === 201) {
+        toast.success("Account created successfully! Please sign in.");
+        setTimeout(() => {
+          handleClose('signUp');
+          handleOpen('signIn');
+        }, 1500);
+      } else {
+        toast.error(res?.data?.message || "Failed to create account. Please try again.");
       }
     } catch (err) {
-      console.log(err)
+      console.error(err);
+      toast.error("An error occurred during registration. Please try again later.");
     }
-
   };
 
   return (
-    <div className="flex flex-col bg-blue-100 bg-opacity-90 backdrop-blur-sm rounded-md py-5 
-    transition-opacity duration-300 ease-in-out delay-100 opacity-100 animate-fadeIn">
-      <div className="flex">
-        {/* Left side - Form */}
-        <div className="flex-1 flex items-center justify-center sm:px-6 lg:flex-none lg:px-10 xl:px-14">
-          <div className="w-full max-w-sm relative">
-            <X className="absolute z-10 right-[-40px] cursor-pointer hover:text-red-600 drop-shadow" onClick={() => handleClose('signUp')} />
-            <div className="mb-8">
-              <Link
-                to="/"
-                className="text-2xl font-bold text-booking-blue mb-2 hover:text-booking-darkBlue"
+    <div className="bg-white rounded-lg shadow-xl overflow-hidden w-full max-w-md mx-auto animate-fadeIn">
+      <div className="p-8 relative">
+        <button 
+          className="absolute right-6 top-6 text-gray-500 hover:text-red-600 transition-colors" 
+          onClick={() => handleClose('signUp')}
+        >
+          <X size={24} />
+        </button>
+        
+        <div className="mx-auto">
+          <div className="mb-6">
+            <Link
+              to="/"
+              className="text-2xl font-bold text-booking-blue mb-2 hover:text-booking-darkBlue cursor-pointer"
+            >
+              WanderStay<span className="text-sm font-bold flex justify-end">Tiruvannamalai</span>
+            </Link>
+            <h2 className="mt-6 text-2xl font-bold text-gray-900">
+              Create your account
+            </h2>
+            <p className="mt-2 text-sm text-gray-600">
+              Already have an account?{" "}
+              <span
+                className="font-medium cursor-pointer text-booking-blue hover:text-booking-darkBlue"
+                onClick={() => handleOpen('signIn')}
               >
-                WanderStay<span className="text-sm font-bold flex justify-end">Tiruvannamalai</span>
-              </Link>
-              <h2 className="mt-6 text-2xl font-bold text-gray-900">
-                Create your account
-              </h2>
-              <p className="mt-2 text-sm text-gray-600">
-                Already have an account?{" "}
-                <div
-                  className="font-medium text-booking-blue hover:text-booking-darkBlue cursor-pointer"
-                  onClick={(e) => handleOpen('signIn')}
-                >
-                  Sign in
-                </div>
-              </p>
-            </div>
+                Sign in
+              </span>
+            </p>
+          </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <Label htmlFor="name">Full Name</Label>
-                <div className="mt-1 relative text-black">
-                  <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                  <Input
-                    id="name"
-                    type="text"
-                    placeholder="Enter your full name"
-                    className="pl-10"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                  />
-                </div>
-              </div>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-5">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-gray-700">Full Name</FormLabel>
+                    <div className="relative">
+                      <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                      <FormControl>
+                        <Input
+                          placeholder="Enter your full name"
+                          className="pl-10 bg-white border-gray-300 focus:border-booking-blue focus:ring-booking-blue"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </div>
+                  </FormItem>
+                )}
+              />
 
-              <div>
-                <Label htmlFor="email">Email</Label>
-                <div className="mt-1 relative text-black">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="Enter your email"
-                    className="pl-10"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                </div>
-              </div>
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-gray-700">Email</FormLabel>
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                      <FormControl>
+                        <Input
+                          type="email"
+                          placeholder="Enter your email address"
+                          className="pl-10 bg-white border-gray-300 focus:border-booking-blue focus:ring-booking-blue"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </div>
+                  </FormItem>
+                )}
+              />
 
-              <div>
-                <Label htmlFor="password">Password</Label>
-                <div className="mt-1 relative text-black">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                  <Input
-                    id="password"
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Enter your password"
-                    className="pl-10 pr-10"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2"
-                  >
-                    {showPassword ? (
-                      <EyeOff className="h-4 w-4 text-gray-400" />
-                    ) : (
-                      <Eye className="h-4 w-4 text-gray-400" />
-                    )}
-                  </button>
-                </div>
-              </div>
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-gray-700">Password</FormLabel>
+                    <div className="relative">
+                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                      <FormControl>
+                        <Input
+                          type={showPassword ? "text" : "password"}
+                          placeholder="Create a password"
+                          className="pl-10 pr-10 bg-white border-gray-300 focus:border-booking-blue focus:ring-booking-blue"
+                          {...field}
+                        />
+                      </FormControl>
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2"
+                      >
+                        {showPassword ? (
+                          <EyeOff className="h-4 w-4 text-gray-400" />
+                        ) : (
+                          <Eye className="h-4 w-4 text-gray-400" />
+                        )}
+                      </button>
+                      <FormMessage />
+                    </div>
+                  </FormItem>
+                )}
+              />
 
-              <Button type="submit" className="w-full bg-booking-blue hover:bg-booking-darkBlue">
-                Sign up
+              <Button 
+                type="submit" 
+                className="w-full bg-booking-blue hover:bg-booking-darkBlue text-white py-2.5 mt-4"
+                disabled={form.formState.isSubmitting}
+              >
+                {form.formState.isSubmitting ? "Creating account..." : "Sign up"}
               </Button>
             </form>
-          </div>
-        </div>
+          </Form>
 
-        {/* Right side - Image */}
-        <div className="hidden lg:block relative flex-1">
-          <img
-            src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b"
-            alt="Laptop computer"
-            className="absolute inset-0 h-full w-full object-cover"
-          />
+          <div className="text-center mt-6">
+            <p className="text-sm text-gray-600">
+              By signing up, you agree to our{" "}
+              <a href="#" className="text-booking-blue hover:text-booking-darkBlue">
+                Terms of Service
+              </a>{" "}
+              and{" "}
+              <a href="#" className="text-booking-blue hover:text-booking-darkBlue">
+                Privacy Policy
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </div>
