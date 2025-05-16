@@ -3,10 +3,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Mail, Lock, Eye, EyeOff, User, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { register } from "@/api/api";
+import { register, RegisterPayload } from "@/api/api";
 import { toast } from "sonner";
 import { 
   Form, 
@@ -20,6 +19,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+// This schema matches the RegisterPayload interface
 const signUpSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
   email: z.string().email({ message: "Please enter a valid email address." }),
@@ -43,7 +43,14 @@ const SignUp = ({ handleClose, handleOpen }) => {
 
   const handleSubmit = async (values: SignUpFormValues) => {
     try {
-      const res = await register(values);
+      // Explicitly cast the values as RegisterPayload to ensure type safety
+      const payload: RegisterPayload = {
+        name: values.name,
+        email: values.email,
+        password: values.password
+      };
+      
+      const res = await register(payload);
       
       if (res?.status === 201) {
         toast.success("Account created successfully! Please sign in.");
