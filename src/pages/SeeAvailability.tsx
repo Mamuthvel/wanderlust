@@ -7,107 +7,11 @@ import { Input } from "@/components/ui/input";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { format } from "date-fns";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { DateRange } from "react-day-picker";
 import { isAuthenticatedRoute } from "@/utils/getToken";
-
-interface Room {
-  id: number;
-  name: string;
-  type: string;
-  beds: number;
-  maxGuests: number;
-  price: number;
-  imageUrl: string;
-  amenities: string[];
-}
-
-const mockRooms: Room[] = [
-  {
-    id: 1,
-    name: "Deluxe King Room",
-    type: "Deluxe",
-    beds: 1,
-    maxGuests: 2,
-    price: 140,
-    imageUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",
-    amenities: ["WiFi", "Ensuite Bathroom", "Breakfast"],
-  },
-  {
-    id: 2,
-    name: "Family Suite",
-    type: "Suite",
-    beds: 2,
-    maxGuests: 4,
-    price: 220,
-    imageUrl: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=600&q=80",
-    amenities: ["WiFi", "Kitchenette", "Balcony", "Breakfast"],
-  },
-  {
-    id: 3,
-    name: "Standard Queen",
-    type: "Standard",
-    beds: 1,
-    maxGuests: 2,
-    price: 99,
-    imageUrl: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80",
-    amenities: ["WiFi", "Breakfast"],
-  },
-];
-
-function AvailabilityResults({
-  availableRooms,
-}: {
-  availableRooms: Room[];
-}) {
-  if (!availableRooms.length)
-    return (
-      <div className="mt-8 text-center text-muted-foreground">
-        No rooms are available for the selected dates and guests.
-      </div>
-    );
-
-  return (
-    <div className="mt-8 grid gap-6 md:grid-cols-2">
-      {availableRooms.map((room) => (
-        <Card key={room.id} className="w-full max-w-md mx-auto">
-          <CardHeader>
-            <div className="flex gap-4 items-center">
-              <img
-                src={room.imageUrl}
-                alt={room.name}
-                className="w-20 h-20 rounded-lg object-cover border"
-              />
-              <div>
-                <CardTitle className="text-xl">{room.name}</CardTitle>
-                <CardDescription>
-                  {room.type} • {room.beds} Bed{room.beds > 1 ? "s" : ""} • Up to {room.maxGuests} Guests
-                </CardDescription>
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-wrap gap-2 text-sm mt-2">
-              {room.amenities.map((a, i) => (
-                <span key={i} className="bg-muted px-2 py-1 rounded">{a}</span>
-              ))}
-            </div>
-            <div className="mt-4 flex justify-between items-end">
-              <div className="flex items-center gap-1">
-                <Bed size={18} className="text-booking-blue" />
-                <span>{room.beds} Bed{room.beds > 1 ? "s" : ""}</span>
-              </div>
-              <div className="text-right">
-                <div className="text-lg font-bold text-booking-blue">${room.price}</div>
-                <div className="text-muted-foreground text-xs">per night</div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      ))}
-    </div>
-  );
-}
+import { mockRooms } from "@/utils/mockRoom";
+import { Room } from "@/utils/mockRoom";
+import AvailabilityResults from "./AvailabilityResult";
 
 const SeeAvailability = () => {
   const [date, setDate] = useState<DateRange | undefined>({
@@ -198,7 +102,11 @@ const SeeAvailability = () => {
         </form>
         {/* Results */}
         {results !== null && (
-          <AvailabilityResults availableRooms={results} />
+          <AvailabilityResults
+            availableRooms={results}
+            startDate={date?.from}
+            endDate={date?.to}
+            guestCount={guests} />
         )}
         {/* Optionally: Show helpful message when no results yet */}
         {results === null && (
