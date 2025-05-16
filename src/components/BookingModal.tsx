@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { bookRoom } from "@/api/api";
 import { Room } from "./RoomCard";
+import { toast } from "sonner";
 
 interface BookingModalProps {
   open: boolean;
@@ -60,9 +61,13 @@ const BookingModal: React.FC<BookingModalProps> = ({
   const totalPrice = room.price * nights;
 
   const onSubmit = async (values: FormValues) => {
-    // Create booking details object
+    // Create booking details object with all required fields from the BookingDetails interface
     const bookingDetails = {
-      ...values,
+      firstName: values.firstName,
+      lastName: values.lastName,
+      email: values.email,
+      phone: values.phone,
+      paymentMethod: values.paymentMethod,
       room: room.name,
       roomId: room.id,
       nights,
@@ -77,14 +82,14 @@ const BookingModal: React.FC<BookingModalProps> = ({
       const response = await bookRoom(bookingDetails);
       
       if (response.success) {
-        // Show a success message
-        alert("Booking successful! A confirmation has been sent to your email.");
+        // Show a success message using Sonner toast
+        toast.success("Booking successful! A confirmation has been sent to your email.");
         onOpenChange(false);
       } else {
-        alert(response.message || "Error during booking. Please try again.");
+        toast.error(response.message || "Error during booking. Please try again.");
       }
     } catch (error) {
-      alert("An unexpected error occurred. Please try again later.");
+      toast.error("An unexpected error occurred. Please try again later.");
       console.error("Booking error:", error);
     }
   };
