@@ -9,6 +9,7 @@ import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover
 import { format } from "date-fns";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { DateRange } from "react-day-picker";
+import { isAuthenticatedRoute } from "@/utils/getToken";
 
 interface Room {
   id: number;
@@ -109,9 +110,9 @@ function AvailabilityResults({
 }
 
 const SeeAvailability = () => {
-  const [date, setDate] = useState<DateRange | undefined>({ 
+  const [date, setDate] = useState<DateRange | undefined>({
     from: undefined,
-    to: undefined 
+    to: undefined
   });
   const [guests, setGuests] = useState<number>(2);
   const [results, setResults] = useState<Room[] | null>(null);
@@ -119,8 +120,14 @@ const SeeAvailability = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Only filter by guest capacity with mock data
-    const filtered = mockRooms.filter(r => guests <= r.maxGuests);
-    setResults(filtered);
+    if (!isAuthenticatedRoute()) {
+      alert('Please login to See the Available room');
+      return;
+    } else {
+      const filtered = mockRooms.filter(r => guests <= r.maxGuests);
+      setResults(filtered);
+    }
+
   };
 
   return (

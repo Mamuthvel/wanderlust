@@ -11,6 +11,7 @@ import NotFound from "./pages/NotFound";
 import SeeAvailability from "./pages/SeeAvailability";
 import ExploreDestinations from "./pages/ExploreDestinations";
 import DestinationDetail from "./pages/DestinationDetail";
+import ProtectedRoute from "./pages/protectedPage/protected";
 
 const queryClient = new QueryClient();
 
@@ -22,11 +23,11 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/see-availability" element={<SeeAvailability />} />
-          <Route path="/explore-destinations" element={<ExploreDestinations />} />
-          <Route path="/destination/:destinationId" element={<DestinationDetail />} />
+          {/* <Route path="/signin" element={<SignIn  />} />
+          <Route path="/signup" element={<SignUp  />} /> */}
+            <Route path="/see-availability" element={<SeeAvailability />} />
+            <Route path="/explore-destinations" element={<ExploreDestinations />} />
+            <Route path="/destination/:destinationId" element={<DestinationDetail />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

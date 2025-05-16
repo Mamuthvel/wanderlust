@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import FeaturedDestinations from "@/components/FeaturedDestinations";
 import PropertyList from "@/components/PropertyList";
 import Footer from "@/components/Footer";
+import { Toaster } from "@/components/ui/toaster";
 
 const Index = () => {
   return (
@@ -27,6 +28,7 @@ const Index = () => {
       </main>
       
       <Footer />
+      <Toaster />
     </div>
   );
 };
