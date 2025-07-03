@@ -2,9 +2,9 @@ import BookingModal from "@/components/BookingModel";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Bed } from "lucide-react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Room } from "@/utils/mockRoom";
-const AvailabilityResults = ({
+const AvailabilityResults = React.memo(({
     availableRooms,
     startDate,
     endDate,
@@ -84,5 +84,5 @@ const AvailabilityResults = ({
             )}
         </div>
     );
-}
+})
 export default AvailabilityResults;

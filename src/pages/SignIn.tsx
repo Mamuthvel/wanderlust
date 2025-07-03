@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,37 +16,44 @@ const SignIn = ({ handleClose, handleOpen }) => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const { user, setUser } = zustandStore();
-  
-  const handleSubmit = async (e: React.FormEvent) => {
+
+  const handleSubmit = useCallback((async (e: React.FormEvent) => {
     e.preventDefault();
     setError(""); // Clear previous errors
     try {
+      // if (email === "muthu@gmail.com" && password === "muthu") {
+      //   zustandStore.getState().toggleSignIn(false);
+      //   toast.success("Login successful!", { duration: 2000 });
+      // } else {
+      //   setError("Login failed. Please try again.");
+      //   toast.error("Login failed.", { duration: 2000 });
+      // }
       const res = await login({ email, password });
       if (res.status === 200 && res?.data?.user) {
         setUser(res.data.user);
-        zustandStore.getState().toggleSignIn(false); 
+        zustandStore.getState().toggleSignIn(false);
         toast.success("Login successful!", { duration: 2000 });
       } else {
         setError(res?.data?.message || "Login failed. Please try again.");
-        toast.error(res?.data?.message || "Login failed.",{ duration: 2000 });
+        toast.error(res?.data?.message || "Login failed.", { duration: 2000 });
       }
     } catch (err: any) {
       console.error(err);
       setError("Login failed. Please check your credentials.");
       toast.error("Login failed. Please check your credentials.");
     }
-  };
+  }), []);
 
   return (
     <div className="bg-white rounded-lg shadow-xl overflow-hidden w-full max-w-md mx-auto animate-fadeIn">
       <div className="p-8 relative">
-        <button 
-          className="absolute right-6 top-6 text-gray-500 hover:text-red-600 transition-colors" 
+        <button
+          className="absolute right-6 top-6 text-gray-500 hover:text-red-600 transition-colors"
           onClick={() => handleClose('signIn')}
         >
           <X size={24} />
         </button>
-        
+
         <div className="mx-auto">
           <div className="mb-8">
             <Link
@@ -69,7 +76,7 @@ const SignIn = ({ handleClose, handleOpen }) => {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6 text-black">
             <div>
               <Label htmlFor="email" className="text-gray-700">Email</Label>
               <div className="mt-1 relative">
@@ -119,13 +126,13 @@ const SignIn = ({ handleClose, handleOpen }) => {
               {error && <p className="text-sm text-red-600 mt-2">{error}</p>}
             </div>
 
-            <Button 
-              type="submit" 
+            <Button
+              type="submit"
               className="w-full bg-booking-blue hover:bg-booking-darkBlue text-white py-2.5"
             >
               Sign in
             </Button>
-            
+
             <div className="text-center mt-4">
               <p className="text-sm text-gray-600">
                 By signing in, you agree to our{" "}

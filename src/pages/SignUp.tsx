@@ -42,7 +42,6 @@ const SignUp = ({ handleClose, handleOpen }) => {
 
   const handleSubmit = async (values: SignUpFormValues) => {
     try {
-      // Explicitly cast the values as RegisterPayload to ensure type safety
       const payload: RegisterPayload = {
         name: values.name,
         email: values.email,
@@ -99,7 +98,7 @@ const SignUp = ({ handleClose, handleOpen }) => {
           </div>
 
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-5">
+            <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-5 text-black">
               <FormField
                 control={form.control}
                 name="name"

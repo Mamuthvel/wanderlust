@@ -31,7 +31,7 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-const BookingModal: React.FC<BookingModalProps> = ({
+const BookingModal: React.FC<BookingModalProps> = React.memo(({
   open,
   onOpenChange,
   room,
@@ -211,6 +211,6 @@ const BookingModal: React.FC<BookingModalProps> = ({
       </DialogContent>
     </Dialog>
   );
-};
+});
 
 export default BookingModal;

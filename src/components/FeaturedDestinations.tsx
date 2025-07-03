@@ -1,5 +1,5 @@
 
-import { useRef } from "react";
+import { useCallback, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ChevronLeft, ChevronRight, Landmark } from "lucide-react";
@@ -55,7 +55,7 @@ const FeaturedDestinations = () => {
   const carouselRef = useRef(null);
   const navigate = useNavigate();
 
-  const scrollCarousel = (direction) => {
+  const scrollCarousel = useCallback(((direction:String) => {
     if (carouselRef.current) {
       const { current: container } = carouselRef;
       const scrollAmount = direction === 'left' 
@@ -67,7 +67,7 @@ const FeaturedDestinations = () => {
         behavior: 'smooth'
       });
     }
-  };
+  }),[carouselRef]);
 
   return (
     <section className="py-10 px-4">
