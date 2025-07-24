@@ -57,7 +57,7 @@ const SearchForm = () => {
   return (
     <form
       onSubmit={handleSearch}
-      className="w-full bg-white p-4 rounded-lg shadow-md"
+      className="w-full glass p-6 rounded-2xl shadow-2xl animate-slide-in-down hover-glow border-0"
     >
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
         {/* Location */}
@@ -71,7 +71,7 @@ const SearchForm = () => {
               id="location"
               placeholder="Enter a destination"
               className={cn(
-                "pl-8",
+                "pl-8 rounded-xl border-2 border-transparent focus:border-travel-blue transition-all duration-300 focus:animate-glow-pulse",
                 location ? "text-black" : "text-muted-foreground"
               )}
               value={location}
@@ -88,7 +88,7 @@ const SearchForm = () => {
               <Button
                 variant="outline"
                 className={cn(
-                  "w-full justify-start text-left font-normal",
+                  "w-full justify-start text-left font-normal rounded-xl border-2 border-transparent hover:border-travel-blue transition-all duration-300 hover-scale",
                   !checkIn ? "text-muted-foreground" : "text-black"
                 )}
               >
@@ -116,7 +116,7 @@ const SearchForm = () => {
               <Button
                 variant="outline"
                 className={cn(
-                  "w-full justify-start text-left font-normal",
+                  "w-full justify-start text-left font-normal rounded-xl border-2 border-transparent hover:border-travel-blue transition-all duration-300 hover-scale",
                   !checkOut ? "text-muted-foreground" : "text-black"
                 )}
               >
@@ -146,7 +146,7 @@ const SearchForm = () => {
             type="button"
             variant="outline"
             className={cn(
-              "w-full justify-start text-left font-normal",
+              "w-full justify-start text-left font-normal rounded-xl border-2 border-transparent hover:border-travel-blue transition-all duration-300 hover-scale",
               guests.adults + guests.children !== 1 || guests.rooms !== 1
                 ? "text-black"
                 : "text-muted-foreground"
@@ -160,7 +160,7 @@ const SearchForm = () => {
           </Button>
 
           {isGuestsOpen && (
-            <div className="absolute top-full left-0 mt-1 w-full bg-white shadow-lg rounded-md p-4 z-50 border">
+            <div className="absolute top-full left-0 mt-1 w-full glass rounded-xl p-4 z-50 border animate-slide-in-down shadow-2xl">
               <div className="space-y-4">
                 <GuestCounter
                   label="Adults"
@@ -190,14 +190,14 @@ const SearchForm = () => {
                   <Button
                     type="button"
                     onClick={() => resetGuest()}
-                    className=" mt-1 bg-booking-blue text-white hover:bg-booking-darkBlue"
+                    className="mt-1 bg-travel-blue text-white hover:bg-travel-blueGlow rounded-xl ripple hover-scale transition-all duration-300"
                   >
                     Reset
                   </Button>
                   <Button
                     type="button"
                     onClick={() => setIsGuestsOpen(false)}
-                    className=" mt-1 bg-booking-blue text-white hover:bg-booking-darkBlue"
+                    className="mt-1 bg-travel-blue text-white hover:bg-travel-blueGlow rounded-xl ripple hover-scale transition-all duration-300"
                   >
                     Done
                   </Button>
@@ -212,7 +212,7 @@ const SearchForm = () => {
       <Button
         type="submit"
         disabled={!isReady}
-        className="w-full mt-4 bg-booking-blue hover:bg-booking-darkBlue text-white"
+        className="w-full mt-6 bg-travel-blue hover:bg-travel-blueGlow text-white rounded-xl py-3 text-lg font-semibold ripple hover-scale transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         <SearchIcon className="mr-2 h-4 w-4" />
         Search

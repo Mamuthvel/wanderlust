@@ -51,16 +51,18 @@ const PropertyList = () => {
   };
 
   return (
-    <section className="py-10 px-4">
+    <section className="py-16 px-4 bg-gradient-to-br from-background to-travel-sky/10">
       <div className="container mx-auto">
-        <h2 className="text-2xl font-bold mb-6">Available properties</h2>
+        <h2 className="text-3xl font-bold mb-8 bg-gradient-to-r from-travel-blue to-travel-ocean bg-clip-text text-transparent animate-fade-in-up">
+          Available properties
+        </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Filter sidebar */}
-          <div className="p-4 bg-white rounded-lg shadow-sm border">
-            <h3 className="font-medium text-lg mb-4">Filter by:</h3>
+          <div className="p-6 glass rounded-2xl border-0 h-fit animate-slide-in-down sticky top-6">
+            <h3 className="font-semibold text-xl mb-6 text-travel-blue">Filter by:</h3>
 
-            <div className="space-y-6">
+            <div className="space-y-8">
               {/* Price range filter */}
               <div>
                 <Label className="mb-2 block">Price range per night</Label>
@@ -104,7 +106,10 @@ const PropertyList = () => {
                 </Select>
               </div>
 
-              <Button onClick={handleClearFilter} className="w-full">
+              <Button 
+                onClick={handleClearFilter} 
+                className="w-full bg-travel-ocean hover:bg-travel-forest rounded-xl py-3 ripple hover-scale transition-all duration-300"
+              >
                 Clear filters
               </Button>
             </div>
@@ -132,17 +137,23 @@ const PropertyList = () => {
               </div>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-6">
               {!propertyData ? (
-                <p>Loading...</p>
+                <div className="flex items-center justify-center py-16">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-travel-blue"></div>
+                  <p className="ml-4 text-lg text-muted-foreground">Loading properties...</p>
+                </div>
               ) : (
-                propertyData?.map((property) => (
-                  <PropertyCard key={property.id} property={property} />
+                propertyData?.map((property, index) => (
+                  <div key={property.id} style={{ animationDelay: `${index * 0.1}s` }}>
+                    <PropertyCard property={property} />
+                  </div>
                 )))}
               {propertyData?.length === 0 && (
-                <div className="text-center py-8">
-                  <p className="text-xl">No properties found matching your criteria</p>
-                  <p className="text-muted-foreground mt-2">Try adjusting your filters</p>
+                <div className="text-center py-16 animate-fade-in-up">
+                  <div className="text-6xl mb-4">🏨</div>
+                  <p className="text-2xl font-semibold text-foreground mb-2">No properties found</p>
+                  <p className="text-muted-foreground">Try adjusting your filters to see more results</p>
                 </div>
               )}
             </div>

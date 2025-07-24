@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 // import { bookRoom } from "@/api/api";
-import { Room } from "./RoomCard";
+import { Room } from "@/utils/mockRoom";
 import { toast } from "sonner";
 
 interface BookingModalProps {
