@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
@@ -15,21 +15,31 @@ import {
 } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
+import useSearchStore from "@/store/destinationStore";
+import { getDestination } from "@/api/api";
 
 const SearchForm = () => {
-  const [location, setLocation] = useState("");
-  const [checkIn, setCheckIn] = useState<Date>();
-  const [checkOut, setCheckOut] = useState<Date>();
-  const [guests, setGuests] = useState({
-    adults: 1,
-    children: 0,
-    rooms: 1
-  });
+  const [isPending, startTransition] = useTransition();
+  const { location, guests, checkIn, checkOut,
+    clearSearch, setCheckIn, setCheckOut,
+    setGuests, setLocation, setDestination } = useSearchStore();
   const [isGuestsOpen, setIsGuestsOpen] = useState(false);
+  const isReady:any = location || checkIn && checkOut || guests.adults > 1 || guests.rooms > 1 || guests.children;
 
+  const data = { location, checkIn, checkOut, guests };
+  const getFilteredDestination = async (data) => {
+    try {
+      const result = await getDestination(data);
+      setDestination(result);
+    } catch (error) {
+      console.log("Failed to retrived destination data");
+    }
+  }
   const handleSearch = (e) => {
     e.preventDefault();
-
+    startTransition(()=>{
+      getFilteredDestination(data)
+    })
     console.log({
       location,
       checkIn,
@@ -39,9 +49,9 @@ const SearchForm = () => {
   };
   const resetGuest = () => {
     setGuests({
-      adults: 0,
+      adults: 1,
       children: 0,
-      rooms: 0
+      rooms: 1
     })
   }
   return (
@@ -201,6 +211,7 @@ const SearchForm = () => {
       {/* Search button */}
       <Button
         type="submit"
+        disabled={!isReady}
         className="w-full mt-4 bg-booking-blue hover:bg-booking-darkBlue text-white"
       >
         <SearchIcon className="mr-2 h-4 w-4" />

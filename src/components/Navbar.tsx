@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 import { Bed, Car, PlaneTakeoff, Landmark, User, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import SignUp from "@/pages/SignUp";
 import SignIn from "@/pages/SignIn";
@@ -12,9 +12,7 @@ import { isAuthenticatedRoute } from "@/utils/getToken";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { isOpenSignIn, isOpenSignUp, toggleSignIn, toggleSignUp } = zustandStore();
-  const [userProfile, setuserProfile] = useState<boolean>(false);
-  const { user, isAuthenticated } = zustandStore();
+  const { isOpenSignIn, isOpenSignUp, toggleSignIn, toggleSignUp,isAuthenticated } = zustandStore();
   const handleClick = (val: string) => {
     const result = val === 'signUp' ? toggleSignUp(!isOpenSignUp) : toggleSignIn(!isOpenSignIn)
     return result
@@ -47,8 +45,6 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-6">
             <NavItem icon={<Bed size={18} />} label="Stays" path="/" active />
             <NavItem icon={<Landmark size={18} />} label="Explore" path="/explore-destinations" />
-            {/* <NavItem icon={<PlaneTakeoff size={18} />} label="Flights" path="/" />
-            <NavItem icon={<Car size={18} />} label="Car Rentals" path="/" /> */}
           </div>
 
           {/* User buttons */}
@@ -58,13 +54,7 @@ const Navbar = () => {
             {isAuthenticated ? <HoverUserDropdown /> : <Button className="bg-white text-booking-blue hover:bg-gray-100" onClick={(e) => handleClick('signIn')}>
               Sign In
             </Button>}
-            {/* </Link>
-            <Link to="/signin"> */}
-            {/* <Button className="bg-white text-booking-blue hover:bg-gray-100" onClick={(e) => handleClick('signIn')}>
-              <User className="mr-2 h-4 w-4" />
-              Sign in
-            </Button> */}
-            {/* </Link> */}
+
           </div>
         </div>
 
@@ -76,23 +66,7 @@ const Navbar = () => {
           <div className="flex flex-col space-y-2 pb-4">
             <MobileNavItem icon={<Bed size={18} />} label="Stays" path="/" active />
             <MobileNavItem icon={<Landmark size={18} />} label="Explore" path="/explore-destinations" />
-            {/* <MobileNavItem icon={<PlaneTakeoff size={18} />} label="Flights" path="/" />
-            <MobileNavItem icon={<Car size={18} />} label="Car Rentals" path="/" /> */}
             <div className="border-t border-booking-darkBlue pt-2 mt-2 space-y-2">
-              {/* <Button variant="ghost" className="w-full justify-start text-white hover:bg-booking-darkBlue">
-                List your property
-              </Button> */}
-              {/* <Link to="/signup">
-                <Button variant="ghost" className="w-full justify-start text-white hover:bg-booking-darkBlue">
-                  Sign up
-                </Button>
-              </Link>
-              <Link to="/signin">
-                <Button className="w-full justify-start bg-white text-booking-blue hover:bg-gray-100">
-                  <User className="mr-2 h-4 w-4" />
-                  Sign in
-                </Button>
-              </Link> */}
               {isAuthenticatedRoute() ? <HoverUserDropdown /> : <Button className="bg-white text-booking-blue hover:bg-gray-100" onClick={(e) => handleClick('signIn')}>
                 Sign In
               </Button>}

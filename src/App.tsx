@@ -23,8 +23,6 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          {/* <Route path="/signin" element={<SignIn  />} />
-          <Route path="/signup" element={<SignUp  />} /> */}
             <Route path="/see-availability" element={<SeeAvailability />} />
             <Route path="/explore-destinations" element={<ExploreDestinations />} />
             <Route path="/destination/:destinationId" element={<DestinationDetail />} />

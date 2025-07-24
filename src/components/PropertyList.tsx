@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropertyCard, { PropertyProps } from "./PropertyCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,98 +12,42 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-const properties: PropertyProps[] = [
-  {
-    id: 1,
-    name: "Grand Hotel Plaza",
-    type: "Hotel",
-    location: "Downtown",
-    rating: 8.9,
-    reviews: 1243,
-    price: 199,
-    imageUrl: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500&auto=format&fit=crop&q=60",
-    featured: true,
-    distanceFromCenter: "0.5 miles"
-  },
-  {
-    id: 2,
-    name: "Sunset Beach Resort",
-    type: "Resort",
-    location: "Beachfront",
-    rating: 9.2,
-    reviews: 875,
-    price: 329,
-    imageUrl: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=500&auto=format&fit=crop&q=60",
-    distanceFromCenter: "2.1 miles"
-  },
-  {
-    id: 3,
-    name: "Urban Loft Apartments",
-    type: "Apartment",
-    location: "Midtown",
-    rating: 8.5,
-    reviews: 642,
-    price: 149,
-    imageUrl: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=500&auto=format&fit=crop&q=60",
-    distanceFromCenter: "1.0 miles"
-  },
-  {
-    id: 4,
-    name: "Mountain View Cabin",
-    type: "Cabin",
-    location: "Countryside",
-    rating: 9.0,
-    reviews: 312,
-    price: 179,
-    imageUrl: "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=500&auto=format&fit=crop&q=60",
-    featured: true,
-    distanceFromCenter: "4.5 miles"
-  },
-  {
-    id: 5,
-    name: "City Center Hostel",
-    type: "Hostel",
-    location: "Downtown",
-    rating: 7.8,
-    reviews: 523,
-    price: 49,
-    imageUrl: "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=500&auto=format&fit=crop&q=60",
-    distanceFromCenter: "0.2 miles"
-  }
-];
+import usepropertyStore from "@/store/propertyStore";
+import { getProperty } from "@/api/api";
 
 const PropertyList = () => {
-  const [priceRange, setPriceRange] = useState([0, 500]);
-  const [selectedPropertyType, setSelectedPropertyType] = useState("");
-  const [filteredProperties, setFilteredProperties] = useState(properties);
-  const [sortOption, setSortOption] = useState("recommended");
+  // const [selectedPropertyType, setSelectedPropertyType] = useState("");
+  const { propertyData,
+    minPrice,
+    maxPrice,
+    type,
+    sort,
+    setMaxPrice, setMinPrice, settype, setSort, setPropertyData,clearFilter } = usepropertyStore();
+  // const [priceRange, setPriceRange] = useState([minPrice, maxPrice]);
+  // const [sortOption, setSortOption] = useState("recommended");
 
-  const handleFilter = () => {
-    let filtered = [...properties];
-    
-    // Filter by price
-    filtered = filtered.filter(
-      (property) => property.price >= priceRange[0] && property.price <= priceRange[1]
-    );
-    
-    // Filter by property type
-    if (selectedPropertyType) {
-      filtered = filtered.filter(
-        (property) => property.type.toLowerCase() === selectedPropertyType.toLowerCase()
-      );
-    }
-    
-    // Sort
-    if (sortOption === "price_low") {
-      filtered.sort((a, b) => a.price - b.price);
-    } else if (sortOption === "price_high") {
-      filtered.sort((a, b) => b.price - a.price);
-    } else if (sortOption === "rating") {
-      filtered.sort((a, b) => b.rating - a.rating);
-    }
-    
-    setFilteredProperties(filtered);
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      const fetchProperties = async () => {
+        const data = await getProperty({
+          minPrice,
+          maxPrice,
+          type,
+          sort,
+        });
+
+        setPropertyData(data);
+      };
+
+      fetchProperties();
+    }, 1000);
+
+    return () => clearTimeout(handler);    
+  }, [minPrice, maxPrice, type, sort]);
+
+  
+  const handleClearFilter = () => {
+    clearFilter()
   };
 
   return (
@@ -115,27 +59,29 @@ const PropertyList = () => {
           {/* Filter sidebar */}
           <div className="p-4 bg-white rounded-lg shadow-sm border">
             <h3 className="font-medium text-lg mb-4">Filter by:</h3>
-            
+
             <div className="space-y-6">
               {/* Price range filter */}
               <div>
                 <Label className="mb-2 block">Price range per night</Label>
                 <div className="px-2">
                   <Slider
-                    defaultValue={[0, 500]}
-                    max={500}
-                    step={10}
-                    value={priceRange}
-                    onValueChange={setPriceRange}
+                    value={[minPrice, maxPrice]}
+                    max={1200}
+                    step={50}
+                    onValueChange={([min, max]) => {
+                      setMinPrice(min);
+                      setMaxPrice(max);
+                    }}
                     className="my-6"
                   />
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="border rounded-md px-2 py-1">
-                    ${priceRange[0]}
+                  &#8377;{minPrice}
                   </div>
                   <div className="border rounded-md px-2 py-1">
-                    ${priceRange[1]}
+                  &#8377;{maxPrice}
                   </div>
                 </div>
               </div>
@@ -143,23 +89,23 @@ const PropertyList = () => {
               {/* Property type filter */}
               <div>
                 <Label htmlFor="propertyType" className="mb-2 block">Property type</Label>
-                <Select value={selectedPropertyType} onValueChange={setSelectedPropertyType}>
+                <Select value={type} onValueChange={settype}>
                   <SelectTrigger id="propertyType">
                     <SelectValue placeholder="All types" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">All types</SelectItem>
                     <SelectItem value="hotel">Hotel</SelectItem>
-                    <SelectItem value="resort">Resort</SelectItem>
+                    <SelectItem value="Guesthouse">Guest House</SelectItem>
                     <SelectItem value="apartment">Apartment</SelectItem>
-                    <SelectItem value="cabin">Cabin</SelectItem>
-                    <SelectItem value="hostel">Hostel</SelectItem>
+                    <SelectItem value="Ashram">Ashram</SelectItem>
+                    <SelectItem value="Lodge">Lodge</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
-              <Button onClick={handleFilter} className="w-full">
-                Apply filters
+              <Button onClick={handleClearFilter} className="w-full">
+                Clear filters
               </Button>
             </div>
           </div>
@@ -168,11 +114,11 @@ const PropertyList = () => {
           <div className="md:col-span-3">
             <div className="flex justify-between items-center mb-4">
               <p className="text-sm">
-                {filteredProperties.length} properties found
+                {propertyData?.length} properties found
               </p>
               <div className="flex items-center">
                 <Label htmlFor="sortBy" className="mr-2 text-sm">Sort by:</Label>
-                <Select value={sortOption} onValueChange={setSortOption}>
+                <Select value={sort} onValueChange={setSort}>
                   <SelectTrigger id="sortBy" className="w-[180px]">
                     <SelectValue placeholder="Recommended" />
                   </SelectTrigger>
@@ -187,11 +133,13 @@ const PropertyList = () => {
             </div>
 
             <div className="space-y-4">
-              {filteredProperties.map((property) => (
-                <PropertyCard key={property.id} property={property} />
-              ))}
-              
-              {filteredProperties.length === 0 && (
+              {!propertyData ? (
+                <p>Loading...</p>
+              ) : (
+                propertyData?.map((property) => (
+                  <PropertyCard key={property.id} property={property} />
+                )))}
+              {propertyData?.length === 0 && (
                 <div className="text-center py-8">
                   <p className="text-xl">No properties found matching your criteria</p>
                   <p className="text-muted-foreground mt-2">Try adjusting your filters</p>

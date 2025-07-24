@@ -139,7 +139,7 @@ const BookingModal: React.FC<BookingModalProps> = ({
                 <FormItem>
                   <FormLabel>Phone Number</FormLabel>
                   <FormControl>
-                    <Input type="tel" placeholder="+1 (555) 000-0000" {...field} />
+                    <Input type="tel" placeholder="+91 00000 00000" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

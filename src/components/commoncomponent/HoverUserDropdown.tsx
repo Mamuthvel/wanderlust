@@ -21,10 +21,9 @@ export default function HoverUserDropdown() {
     };
 
     const handleLogout = () => {
-        localStorage.removeItem("token");
-        zustandStore.getState().setIsAuthenticated(false);
-    };
-
+        // localStorage.removeItem("token");
+        zustandStore.getState().logout();
+    }
     return (
         <div onMouseEnter={handleOpen} onMouseLeave={handleClose}>
             <DropdownMenu open={open} onOpenChange={setOpen}>

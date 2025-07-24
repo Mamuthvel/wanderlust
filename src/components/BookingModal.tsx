@@ -8,7 +8,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { bookRoom } from "@/api/api";
+// import { bookRoom } from "@/api/api";
 import { Room } from "./RoomCard";
 import { toast } from "sonner";
 
@@ -77,21 +77,21 @@ const BookingModal: React.FC<BookingModalProps> = ({
       guestCount,
     };
     
-    try {
-      // Call the bookRoom API function
-      const response = await bookRoom(bookingDetails);
+    // try {
+    //   // Call the bookRoom API function
+    //   const response = await bookRoom(bookingDetails);
       
-      if (response.success) {
-        // Show a success message using Sonner toast
-        toast.success("Booking successful! A confirmation has been sent to your email.");
-        onOpenChange(false);
-      } else {
-        toast.error(response.message || "Error during booking. Please try again.");
-      }
-    } catch (error) {
-      toast.error("An unexpected error occurred. Please try again later.");
-      console.error("Booking error:", error);
-    }
+    //   if (response.success) {
+    //     // Show a success message using Sonner toast
+    //     toast.success("Booking successful! A confirmation has been sent to your email.");
+    //     onOpenChange(false);
+    //   } else {
+    //     toast.error(response.message || "Error during booking. Please try again.");
+    //   }
+    // } catch (error) {
+    //   toast.error("An unexpected error occurred. Please try again later.");
+    //   console.error("Booking error:", error);
+    // }
   };
 
   return (
@@ -156,7 +156,7 @@ const BookingModal: React.FC<BookingModalProps> = ({
                 <FormItem>
                   <FormLabel>Phone Number</FormLabel>
                   <FormControl>
-                    <Input type="tel" placeholder="+1 (555) 000-0000" {...field} />
+                    <Input type="tel" placeholder="+91 mobile number" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

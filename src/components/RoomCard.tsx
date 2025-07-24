@@ -3,17 +3,8 @@ import React from "react";
 import { Bed } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Room } from "@/utils/mockRoom";
 
-export interface Room {
-  id: number;
-  name: string;
-  type: string;
-  beds: number;
-  maxGuests: number;
-  price: number;
-  imageUrl: string;
-  amenities: string[];
-}
 
 interface RoomCardProps {
   room: Room;
@@ -21,6 +12,7 @@ interface RoomCardProps {
 }
 
 const RoomCard: React.FC<RoomCardProps> = ({ room, onBookNow }) => {
+  
   return (
     <Card key={room.id} className="w-full max-w-md mx-auto">
       <CardHeader>

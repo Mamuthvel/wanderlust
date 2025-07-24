@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Landmark, MapPin, Search } from "lucide-react";
 
-interface Destination {
+export interface Destination {
   id: number;
   name: string;
   country: string;

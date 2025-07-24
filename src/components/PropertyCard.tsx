@@ -2,8 +2,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Star } from "lucide-react";
 import { Link } from "react-router-dom";
+import { getRoomsFromProperty } from "@/api/api";
+import usepropertyStore from "@/store/propertyStore";
+import { useCallback } from "react";
 
 export interface PropertyProps {
+  _id?: string,
   id: number;
   name: string;
   type: string;
@@ -18,6 +22,7 @@ export interface PropertyProps {
 
 const PropertyCard = ({ property }: { property: PropertyProps }) => {
   const {
+    _id,
     name,
     type,
     location,
@@ -28,7 +33,12 @@ const PropertyCard = ({ property }: { property: PropertyProps }) => {
     featured,
     distanceFromCenter
   } = property;
+  const { setpropertyId } = usepropertyStore()
 
+  const handleSeeAvailability = useCallback(() => {
+    if (!_id) throw new Error('Id not found')
+    setpropertyId(_id)
+  }, [_id]);
   return (
     <Card className="overflow-hidden hover:shadow-md transition-shadow duration-300">
       <CardContent className="p-0">
@@ -59,7 +69,7 @@ const PropertyCard = ({ property }: { property: PropertyProps }) => {
                   </p>
                 )}
               </div>
-              
+
               <div className="flex items-center space-x-2">
                 <div className="bg-booking-darkBlue text-white px-2 py-1 rounded flex items-center">
                   <span className="font-bold">{rating}</span>
@@ -77,14 +87,16 @@ const PropertyCard = ({ property }: { property: PropertyProps }) => {
                   <Star key={i} className="h-4 w-4 fill-booking-yellow text-booking-yellow" />
                 ))}
               </div>
-              
+
               <div className="text-right">
                 <div className="text-lg font-bold">
                   ${price}
                 </div>
                 <p className="text-sm text-muted-foreground">per night</p>
                 <Link to="/see-availability">
-                  <button className="mt-2 bg-booking-blue hover:bg-booking-darkBlue text-white px-4 py-2 rounded text-sm font-medium">
+                  <button
+                    onClick={handleSeeAvailability}
+                    className="mt-2 bg-booking-blue hover:bg-booking-darkBlue text-white px-4 py-2 rounded text-sm font-medium">
                     See availability
                   </button>
                 </Link>

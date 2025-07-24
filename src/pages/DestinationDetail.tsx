@@ -7,12 +7,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { MapPin, Landmark, ArrowLeft } from "lucide-react";
 
-interface DestinationData {
+export interface DestinationData {
   id: number;
   name: string;
   country: string;
   properties: number;
   imageUrl: string;
+  urlSlug?:string;
   description: string;
   category: string;
   highlights?: string[];

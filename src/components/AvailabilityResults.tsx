@@ -1,7 +1,8 @@
 
 import React, { useState } from "react";
 import BookingModal from "@/components/BookingModal";
-import RoomCard, { Room } from "@/components/RoomCard";
+import RoomCard from "@/components/RoomCard";
+import { Room } from "@/utils/mockRoom";
 
 interface AvailabilityResultsProps {
   availableRooms: Room[];
@@ -30,6 +31,7 @@ const AvailabilityResults: React.FC<AvailabilityResultsProps> = ({
     setSelectedRoom(room);
     setIsModalOpen(true);
   };
+console.log(availableRooms,'ava');
 
   return (
     <div className="mt-8 grid gap-6 md:grid-cols-2">

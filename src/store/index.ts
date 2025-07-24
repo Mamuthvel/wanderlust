@@ -1,40 +1,37 @@
 import { create } from 'zustand';
-import { persist } from "zustand/middleware";
+
 interface User {
-    name: String,
-    email: String
+  name: string;
+  email: string;
 }
+
 interface AuthStore {
-    user: User | null;
-    isOpenSignIn: boolean;
-    isOpenSignUp: boolean;
-    isAuthenticated: boolean;
-    setIsAuthenticated: (val?: boolean) => void;
-    setUser: (user: User) => void;
-    logout: () => void;
-    toggleSignIn: (val?: boolean) => void;
-    toggleSignUp: (val?: boolean) => void;
+  user: User | null;
+  isOpenSignIn: boolean;
+  isOpenSignUp: boolean;
+  isAuthenticated: boolean;
+  setIsAuthenticated: (val?: boolean) => void;
+  setUser: (user: User) => void;
+  logout: () => void;
+  toggleSignIn: (val?: boolean) => void;
+  toggleSignUp: (val?: boolean) => void;
 }
-const zustandStore = create<AuthStore>()(
-    // persist(
-    (set) => ({
-        user: null,
-        isOpenSignIn: false,
-        isOpenSignUp: false,
-        isAuthenticated: !!localStorage.getItem("token"),
-        setIsAuthenticated: (val) => set({ isAuthenticated: val }),
-        setUser: (user: User) => set({ user }),
-        logout: () => {
-            // zustandStore.persist.clearStorage()
-            localStorage.clear();
-        },
-        toggleSignIn: (val) => set((state) => ({ isOpenSignIn: val ?? !state.isOpenSignIn })),
-        toggleSignUp: (val) => set((state) => ({ isOpenSignUp: val ?? !state.isOpenSignUp })),
-    }),
-    //     {
-    //         name: 'token'
-    //     }
-    // )
-);
+
+const zustandStore = create<AuthStore>()((set) => ({
+  user: null,
+  isOpenSignIn: false,
+  isOpenSignUp: false,
+  isAuthenticated: !!localStorage.getItem("token"),
+  setIsAuthenticated: (val) => set({ isAuthenticated: val }),
+  setUser: (user) => set({ user }),
+  logout: () => {
+    localStorage.removeItem("token");
+    set({ isAuthenticated: false, user: null });
+  },
+  toggleSignIn: (val) =>
+    set((state) => ({ isOpenSignIn: val ?? !state.isOpenSignIn })),
+  toggleSignUp: (val) =>
+    set((state) => ({ isOpenSignUp: val ?? !state.isOpenSignUp })),
+}));
 
 export default zustandStore;
