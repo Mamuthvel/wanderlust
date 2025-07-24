@@ -67,55 +67,59 @@ const SignUp = ({ handleClose, handleOpen }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-xl overflow-hidden w-full max-w-md mx-auto animate-fadeIn">
-      <div className="p-8 relative">
-        <button 
-          className="absolute right-6 top-6 text-gray-500 hover:text-red-600 transition-colors" 
-          onClick={() => handleClose('signUp')}
-        >
-          <X size={24} />
-        </button>
+    <div className="glass rounded-2xl shadow-2xl overflow-hidden w-full max-w-md mx-auto animate-scaleIn backdrop-blur-xl border border-white/20">
+      <div className="relative">
+        {/* Animated gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 via-primary/5 to-accent/10 animate-glowPulse" />
         
-        <div className="mx-auto">
-          <div className="mb-6">
-            <Link
-              to="/"
-              className="text-2xl font-bold text-booking-blue mb-2 hover:text-booking-darkBlue cursor-pointer"
-            >
-              WanderStay<span className="text-sm font-bold flex justify-end">Tiruvannamalai</span>
-            </Link>
-            <h2 className="mt-6 text-2xl font-bold text-gray-900">
-              Create your account
-            </h2>
-            <p className="mt-2 text-sm text-gray-600">
-              Already have an account?{" "}
-              <span
-                className="font-medium cursor-pointer text-booking-blue hover:text-booking-darkBlue"
-                onClick={() => handleOpen('signIn')}
+        <div className="p-8 relative z-10">
+          <button 
+            className="absolute right-6 top-6 text-muted-foreground hover:text-destructive transition-all duration-300 hover:scale-110 hover:rotate-90" 
+            onClick={() => handleClose('signUp')}
+          >
+            <X size={24} />
+          </button>
+          
+          <div className="mx-auto">
+            <div className="mb-6 animate-slideInLeft">
+              <Link
+                to="/"
+                className="text-2xl font-bold bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent hover:from-accent hover:to-primary transition-all duration-300"
               >
-                Sign in
-              </span>
-            </p>
-          </div>
+                WanderStay<span className="text-sm font-bold flex justify-end animate-float">Tiruvannamalai</span>
+              </Link>
+              <h2 className="mt-6 text-3xl font-bold bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
+                Create your account 🚀
+              </h2>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Already have an account?{" "}
+                <span
+                  className="font-medium cursor-pointer bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent hover:from-accent hover:to-primary transition-all duration-300"
+                  onClick={() => handleOpen('signIn')}
+                >
+                  Sign in
+                </span>
+              </p>
+            </div>
 
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-5">
+            <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-5 animate-slideInRight" style={{ animationDelay: '0.2s' }}>
               <FormField
                 control={form.control}
                 name="name"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-gray-700">Full Name</FormLabel>
+                  <FormItem className="group">
+                    <FormLabel className="text-card-foreground font-medium">Full Name</FormLabel>
                     <div className="relative">
-                      <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                      <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-secondary transition-colors duration-300" />
                       <FormControl>
                         <Input
                           placeholder="Enter your full name"
-                          className="pl-10 bg-white border-gray-300 focus:border-booking-blue focus:ring-booking-blue"
+                          className="pl-10 glass border-border/50 focus:border-secondary/50 focus:ring-secondary/30 transition-all duration-300 hover:bg-white/90 focus:bg-white"
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="animate-slideInDown" />
                     </div>
                   </FormItem>
                 )}
@@ -125,19 +129,19 @@ const SignUp = ({ handleClose, handleOpen }) => {
                 control={form.control}
                 name="email"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-gray-700">Email</FormLabel>
+                  <FormItem className="group">
+                    <FormLabel className="text-card-foreground font-medium">Email</FormLabel>
                     <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-secondary transition-colors duration-300" />
                       <FormControl>
                         <Input
                           type="email"
                           placeholder="Enter your email address"
-                          className="pl-10 bg-white border-gray-300 focus:border-booking-blue focus:ring-booking-blue"
+                          className="pl-10 glass border-border/50 focus:border-secondary/50 focus:ring-secondary/30 transition-all duration-300 hover:bg-white/90 focus:bg-white"
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="animate-slideInDown" />
                     </div>
                   </FormItem>
                 )}
@@ -147,30 +151,30 @@ const SignUp = ({ handleClose, handleOpen }) => {
                 control={form.control}
                 name="password"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-gray-700">Password</FormLabel>
+                  <FormItem className="group">
+                    <FormLabel className="text-card-foreground font-medium">Password</FormLabel>
                     <div className="relative">
-                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-secondary transition-colors duration-300" />
                       <FormControl>
                         <Input
                           type={showPassword ? "text" : "password"}
                           placeholder="Create a password"
-                          className="pl-10 pr-10 bg-white border-gray-300 focus:border-booking-blue focus:ring-booking-blue"
+                          className="pl-10 pr-10 glass border-border/50 focus:border-secondary/50 focus:ring-secondary/30 transition-all duration-300 hover:bg-white/90 focus:bg-white"
                           {...field}
                         />
                       </FormControl>
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-secondary transition-all duration-300 hover:scale-110"
                       >
                         {showPassword ? (
-                          <EyeOff className="h-4 w-4 text-gray-400" />
+                          <EyeOff className="h-4 w-4" />
                         ) : (
-                          <Eye className="h-4 w-4 text-gray-400" />
+                          <Eye className="h-4 w-4" />
                         )}
                       </button>
-                      <FormMessage />
+                      <FormMessage className="animate-slideInDown" />
                     </div>
                   </FormItem>
                 )}
@@ -178,25 +182,26 @@ const SignUp = ({ handleClose, handleOpen }) => {
 
               <Button 
                 type="submit" 
-                className="w-full bg-booking-blue hover:bg-booking-darkBlue text-white py-2.5 mt-4"
+                className="w-full bg-gradient-to-r from-secondary to-accent hover:from-accent hover:to-secondary text-secondary-foreground py-3 mt-6 ripple transition-all duration-300 hover:shadow-lg hover:shadow-secondary/25 font-semibold"
                 disabled={form.formState.isSubmitting}
               >
-                {form.formState.isSubmitting ? "Creating account..." : "Sign up"}
+                {form.formState.isSubmitting ? "Creating account... ⏳" : "Create account 🚀"}
               </Button>
             </form>
           </Form>
 
-          <div className="text-center mt-6">
-            <p className="text-sm text-gray-600">
+          <div className="text-center mt-6 animate-slideInUp" style={{ animationDelay: '0.4s' }}>
+            <p className="text-sm text-muted-foreground">
               By signing up, you agree to our{" "}
-              <a href="#" className="text-booking-blue hover:text-booking-darkBlue">
+              <a href="#" className="bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent hover:from-accent hover:to-primary transition-all duration-300">
                 Terms of Service
               </a>{" "}
               and{" "}
-              <a href="#" className="text-booking-blue hover:text-booking-darkBlue">
+              <a href="#" className="bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent hover:from-accent hover:to-primary transition-all duration-300">
                 Privacy Policy
               </a>
             </p>
+          </div>
           </div>
         </div>
       </div>
