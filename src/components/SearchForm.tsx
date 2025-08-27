@@ -57,22 +57,22 @@ const SearchForm = () => {
   return (
     <form
       onSubmit={handleSearch}
-      className="w-full glass p-6 rounded-2xl shadow-2xl animate-slide-in-down hover-glow border-0"
+      className="w-full glass p-8 rounded-2xl shadow-2xl animate-slide-in-down hover-glow border-2 border-nature-temple/20 bg-gradient-to-br from-white/95 to-nature-sky/20"
     >
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
         {/* Location */}
         <div className="md:col-span-2">
-          <Label htmlFor="location" className="text-sm font-medium mb-1 block">
-            Where are you going?
+          <Label htmlFor="location" className="text-sm font-medium mb-3 block text-nature-earth">
+            Sacred Destination
           </Label>
           <div className="relative">
-            <SearchIcon className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-500 h-4 w-4" />
+            <SearchIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-nature-stone h-4 w-4" />
             <Input
               id="location"
-              placeholder="Enter a destination"
+              placeholder="Discover Tiruvannamalai"
               className={cn(
-                "pl-8 rounded-xl border-2 border-transparent focus:border-travel-blue transition-all duration-300 focus:animate-glow-pulse",
-                location ? "text-black" : "text-muted-foreground"
+                "pl-10 rounded-xl border-2 border-nature-stone/30 focus:border-nature-temple transition-all duration-300 focus:animate-glow-pulse bg-white/95 shadow-md hover:scale-[1.02] focus:scale-105",
+                location ? "text-nature-earth" : "text-nature-stone"
               )}
               value={location}
               onChange={(e) => setLocation(e.target.value)}
@@ -82,21 +82,21 @@ const SearchForm = () => {
 
         {/* Check-in / Check-out */}
         <div>
-          <Label className="text-sm font-medium mb-1 block">Check-in date</Label>
+          <Label className="text-sm font-medium mb-3 block text-nature-earth">Arrival</Label>
           <Popover>
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
                 className={cn(
-                  "w-full justify-start text-left font-normal rounded-xl border-2 border-transparent hover:border-travel-blue transition-all duration-300 hover-scale",
-                  !checkIn ? "text-muted-foreground" : "text-black"
+                  "w-full justify-start text-left font-normal rounded-xl border-2 border-nature-stone/30 hover:border-nature-temple transition-all duration-300 hover-scale bg-white/95 shadow-md hover:scale-[1.02]",
+                  !checkIn ? "text-nature-stone" : "text-nature-earth"
                 )}
               >
-                <CalendarIcon className="mr-2 h-4 w-4" />
-                {checkIn ? format(checkIn, "MMM d, yyyy") : <span>Pick a date</span>}
+                <CalendarIcon className="mr-2 h-4 w-4 text-nature-temple" />
+                {checkIn ? format(checkIn, "MMM d, yyyy") : <span>Select date</span>}
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
+            <PopoverContent className="w-auto p-0 glass-card border-nature-stone/20" align="start">
               <Calendar
                 mode="single"
                 selected={checkIn}
@@ -110,21 +110,21 @@ const SearchForm = () => {
         </div>
 
         <div>
-          <Label className="text-sm font-medium mb-1 block">Check-out date</Label>
+          <Label className="text-sm font-medium mb-3 block text-nature-earth">Departure</Label>
           <Popover>
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
                 className={cn(
-                  "w-full justify-start text-left font-normal rounded-xl border-2 border-transparent hover:border-travel-blue transition-all duration-300 hover-scale",
-                  !checkOut ? "text-muted-foreground" : "text-black"
+                  "w-full justify-start text-left font-normal rounded-xl border-2 border-nature-stone/30 hover:border-nature-temple transition-all duration-300 hover-scale bg-white/95 shadow-md hover:scale-[1.02]",
+                  !checkOut ? "text-nature-stone" : "text-nature-earth"
                 )}
               >
-                <CalendarIcon className="mr-2 h-4 w-4" />
-                {checkOut ? format(checkOut, "MMM d, yyyy") : <span>Pick a date</span>}
+                <CalendarIcon className="mr-2 h-4 w-4 text-nature-temple" />
+                {checkOut ? format(checkOut, "MMM d, yyyy") : <span>Select date</span>}
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
+            <PopoverContent className="w-auto p-0 glass-card border-nature-stone/20" align="start">
               <Calendar
                 mode="single"
                 selected={checkOut}
@@ -141,26 +141,26 @@ const SearchForm = () => {
 
         {/* Guests */}
         <div className="relative">
-          <Label className="text-sm font-medium mb-1 block">Guests</Label>
+          <Label className="text-sm font-medium mb-3 block text-nature-earth">Pilgrims</Label>
           <Button
             type="button"
             variant="outline"
             className={cn(
-              "w-full justify-start text-left font-normal rounded-xl border-2 border-transparent hover:border-travel-blue transition-all duration-300 hover-scale",
+              "w-full justify-start text-left font-normal rounded-xl border-2 border-nature-stone/30 hover:border-nature-temple transition-all duration-300 hover-scale bg-white/95 shadow-md hover:scale-[1.02]",
               guests.adults + guests.children !== 1 || guests.rooms !== 1
-                ? "text-black"
-                : "text-muted-foreground"
+                ? "text-nature-earth"
+                : "text-nature-stone"
             )}
             onClick={() => setIsGuestsOpen(!isGuestsOpen)}
           >
-            <Users className="mr-2 h-4 w-4" />
+            <Users className="mr-2 h-4 w-4 text-nature-temple" />
             <span>
-              {guests.adults + guests.children} guests, {guests.rooms} {guests.rooms === 1 ? 'room' : 'rooms'}
+              {guests.adults + guests.children} pilgrims, {guests.rooms} {guests.rooms === 1 ? 'room' : 'rooms'}
             </span>
           </Button>
 
           {isGuestsOpen && (
-            <div className="absolute top-full left-0 mt-1 w-full glass rounded-xl p-4 z-50 border animate-slide-in-down shadow-2xl">
+            <div className="absolute top-full left-0 mt-2 w-full glass rounded-xl p-5 z-50 border-2 border-nature-temple/20 animate-slide-in-down shadow-2xl bg-gradient-to-br from-white/95 to-nature-sky/20">
               <div className="space-y-4">
                 <GuestCounter
                   label="Adults"
@@ -186,18 +186,18 @@ const SearchForm = () => {
                     setGuests({ ...guests, rooms: Math.max(1, guests.rooms - 1) })
                   }
                 />
-                <div className="flex gap-2 justify-center">
+                <div className="flex gap-3 justify-center">
                   <Button
                     type="button"
                     onClick={() => resetGuest()}
-                    className="mt-1 bg-travel-blue text-white hover:bg-travel-blueGlow rounded-xl ripple hover-scale transition-all duration-300"
+                    className="mt-2 bg-nature-stone text-white hover:bg-nature-earth rounded-xl ripple hover-scale transition-all duration-300 shadow-md"
                   >
                     Reset
                   </Button>
                   <Button
                     type="button"
                     onClick={() => setIsGuestsOpen(false)}
-                    className="mt-1 bg-travel-blue text-white hover:bg-travel-blueGlow rounded-xl ripple hover-scale transition-all duration-300"
+                    className="mt-2 bg-nature-temple text-white hover:bg-nature-sunset rounded-xl ripple hover-scale transition-all duration-300 shadow-md"
                   >
                     Done
                   </Button>
@@ -212,34 +212,34 @@ const SearchForm = () => {
       <Button
         type="submit"
         disabled={!isReady}
-        className="w-full mt-6 bg-travel-blue hover:bg-travel-blueGlow text-white rounded-xl py-3 text-lg font-semibold ripple hover-scale transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full mt-8 bg-gradient-to-r from-nature-temple to-nature-sunset hover:from-nature-sunset hover:to-nature-leaf text-white rounded-xl py-4 text-lg font-semibold ripple hover-scale transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-xl hover:shadow-2xl hover:animate-glow-pulse"
       >
-        <SearchIcon className="mr-2 h-4 w-4" />
-        Search
+        <SearchIcon className="mr-2 h-5 w-5" />
+        Find Sacred Stays
       </Button>
     </form>
   );
 };
 
 const GuestCounter = ({ label, value, onIncrement, onDecrement }) => (
-  <div className="flex items-center justify-between gap-2">
-    <span className="text-black text-sm">{label}</span>
-    <div className="flex items-center">
+  <div className="flex items-center justify-between gap-3">
+    <span className="text-nature-earth text-sm font-medium">{label}</span>
+    <div className="flex items-center gap-2">
       <Button
         type="button"
         size="sm"
         variant="outline"
-        className="h-7 w-7 p-0 text-black"
+        className="h-8 w-8 p-0 text-nature-earth border-nature-stone/30 hover:border-nature-temple hover:bg-nature-temple hover:text-white transition-all duration-300 rounded-lg"
         onClick={onDecrement}
       >
         -
       </Button>
-      <span className="w-6 text-center text-black text-sm">{value}</span>
+      <span className="w-8 text-center text-nature-earth text-sm font-semibold">{value}</span>
       <Button
         type="button"
         size="sm"
         variant="outline"
-        className="h-7 w-7 p-0 text-black"
+        className="h-8 w-8 p-0 text-nature-earth border-nature-stone/30 hover:border-nature-temple hover:bg-nature-temple hover:text-white transition-all duration-300 rounded-lg"
         onClick={onIncrement}
       >
         +

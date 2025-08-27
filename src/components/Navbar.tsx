@@ -25,12 +25,18 @@ const Navbar = () => {
     val === 'signIn' ? (toggleSignUp(false), toggleSignIn(true)) : (toggleSignIn(false), toggleSignUp(true))
   }
   return (
-    <><nav className="bg-booking-blue text-white py-4 relative">
+    <><nav className="bg-gradient-to-r from-nature-earth to-nature-stone text-white py-6 relative shadow-lg backdrop-blur-sm">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <Link to="/" className="text-2xl font-bold m-0">
-            WanderStay<br /><span className="text-sm font-bold flex justify-end">Tiruvannamalai</span>
+          <Link to="/" className="text-2xl font-bold m-0 hover:scale-105 transition-transform duration-300 group">
+            <span className="bg-gradient-to-r from-nature-temple to-nature-sunset bg-clip-text text-transparent">
+              WanderStay
+            </span>
+            <br />
+            <span className="text-sm font-bold flex justify-end text-nature-sky group-hover:text-nature-temple transition-colors">
+              Tiruvannamalai
+            </span>
           </Link>
 
           {/* Mobile menu button */}
@@ -51,7 +57,7 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-4">
 
             {/* <Link to="/signup"> */}
-            {isAuthenticated ? <HoverUserDropdown /> : <Button className="bg-white text-booking-blue hover:bg-gray-100" onClick={(e) => handleClick('signIn')}>
+            {isAuthenticated ? <HoverUserDropdown /> : <Button className="bg-nature-temple text-white hover:bg-nature-sunset hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl" onClick={(e) => handleClick('signIn')}>
               Sign In
             </Button>}
 
@@ -67,7 +73,7 @@ const Navbar = () => {
             <MobileNavItem icon={<Bed size={18} />} label="Stays" path="/" active />
             <MobileNavItem icon={<Landmark size={18} />} label="Explore" path="/explore-destinations" />
             <div className="border-t border-booking-darkBlue pt-2 mt-2 space-y-2">
-              {isAuthenticatedRoute() ? <HoverUserDropdown /> : <Button className="bg-white text-booking-blue hover:bg-gray-100" onClick={(e) => handleClick('signIn')}>
+              {isAuthenticatedRoute() ? <HoverUserDropdown /> : <Button className="bg-nature-temple text-white hover:bg-nature-sunset" onClick={(e) => handleClick('signIn')}>
                 Sign In
               </Button>}
             </div>
@@ -84,10 +90,11 @@ const Navbar = () => {
 const NavItem = ({ icon, label, path, active = false }) => (
   <Link
     to={path}
-    className={`flex items-center px-2 py-1 rounded-md ${active ? "bg-booking-darkBlue" : "hover:bg-booking-darkBlue"
-      }`}
+    className={`flex items-center px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 ${
+      active ? "bg-nature-temple shadow-lg" : "hover:bg-nature-stone/50 hover:shadow-md"
+    }`}
   >
-    <span className="mr-1">{icon}</span>
+    <span className="mr-2">{icon}</span>
     <span>{label}</span>
   </Link>
 );
@@ -95,8 +102,9 @@ const NavItem = ({ icon, label, path, active = false }) => (
 const MobileNavItem = ({ icon, label, path, active = false }) => (
   <Link
     to={path}
-    className={`flex items-center px-2 py-3 rounded-md ${active ? "bg-booking-darkBlue" : "hover:bg-booking-darkBlue"
-      }`}
+    className={`flex items-center px-3 py-3 rounded-lg transition-all duration-300 ${
+      active ? "bg-nature-temple shadow-lg" : "hover:bg-nature-stone/50"
+    }`}
   >
     <span className="mr-2">{icon}</span>
     <span>{label}</span>

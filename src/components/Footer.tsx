@@ -3,20 +3,23 @@ import { Link } from "react-router-dom";
 import { Mail, Phone, Instagram, Facebook, Twitter, Linkedin } from "lucide-react";
 
 const FooterLink = ({ href, children }) => (
-  <Link to={href} className="text-gray-500 hover:text-booking-blue transition-colors">
+  <Link to={href} className="text-nature-sky hover:text-nature-temple transition-colors duration-300 hover:scale-105 inline-block">
     {children}
   </Link>
 );
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-50 py-12 mt-10">
+    <footer className="bg-gradient-to-br from-nature-earth to-nature-stone text-white py-16 mt-10">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="font-bold text-lg mb-4">WanderStay<br /><span className="text-sm font-bold flex">Tiruvannamalai</span>
-            </h3> <p className="text-gray-500 mb-4">
-              Making travel planning easy and enjoyable with the best deals on accommodations worldwide.
+            <h3 className="font-bold text-xl mb-4 bg-gradient-to-r from-nature-temple to-nature-sunset bg-clip-text text-transparent">
+              WanderStay<br />
+              <span className="text-sm font-bold flex text-nature-sky">Tiruvannamalai</span>
+            </h3> 
+            <p className="text-nature-sky mb-4 leading-relaxed">
+              Experience the spiritual essence of Tiruvannamalai with premium accommodations near the sacred Arunachala Mountain.
             </p>
             <div className="flex space-x-4">
               <FooterLink href="/">

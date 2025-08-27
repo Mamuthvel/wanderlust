@@ -153,29 +153,32 @@ const ExploreDestinations = () => {
       
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold mb-2 text-booking-blue">Explore Destinations</h1>
-          <p className="text-muted-foreground">Discover amazing places to visit around the world</p>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-nature-temple to-nature-sunset bg-clip-text text-transparent">Sacred Destinations</h1>
+          <p className="text-nature-stone text-lg">Discover spiritual places around the world for your sacred journey</p>
         </div>
         
         {/* Search and Filter */}
-        <div className="bg-white/95 border rounded-lg shadow p-6 mb-8">
-          <div className="flex flex-col md:flex-row gap-4">
+        <div className="glass border-2 border-nature-temple/20 rounded-2xl shadow-xl p-6 mb-8 bg-gradient-to-br from-white/95 to-nature-sky/20">
+          <div className="flex flex-col md:flex-row gap-6">
             <div className="relative flex-grow">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-nature-stone h-4 w-4" />
               <Input 
-                className="pl-10" 
-                placeholder="Search destinations..." 
+                className="pl-10 bg-white/95 border-nature-stone/30 focus:border-nature-temple focus:ring-2 focus:ring-nature-temple/20 rounded-lg shadow-md transition-all duration-300 hover:scale-[1.02]" 
+                placeholder="Search sacred destinations..." 
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-3">
               {categories.map(category => (
                 <Button
                   key={category}
                   variant={selectedCategory === category ? "default" : "outline"}
                   onClick={() => setSelectedCategory(category)}
-                  className={selectedCategory === category ? "bg-booking-blue hover:bg-booking-darkBlue" : ""}
+                  className={selectedCategory === category 
+                    ? "bg-nature-temple hover:bg-nature-sunset text-white shadow-lg" 
+                    : "border-nature-stone/30 text-nature-earth hover:border-nature-temple hover:text-nature-temple"
+                  }
                 >
                   {category}
                 </Button>
@@ -190,41 +193,41 @@ const ExploreDestinations = () => {
             filteredDestinations.map((destination) => (
               <Card 
                 key={destination.id} 
-                className="overflow-hidden hover:-translate-y-1 transition-transform duration-300 cursor-pointer"
+                className="overflow-hidden hover:-translate-y-3 hover:scale-[1.02] transition-all duration-500 cursor-pointer glass-card border-nature-stone/20 bg-gradient-to-br from-white to-nature-sky/10 shadow-lg hover:shadow-2xl group"
                 onClick={() => navigate(destination.urlSlug ? `/destination/${destination.urlSlug}` : "/see-availability")}
               >
                 <CardContent className="p-0">
-                  <div className="relative h-48 overflow-hidden">
+                    <div className="relative h-48 overflow-hidden rounded-t-xl">
                     <img 
                       src={destination.imageUrl} 
                       alt={destination.name}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
-                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-                      <span className="text-white text-sm font-medium px-2 py-1 bg-booking-blue/80 rounded">
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-nature-earth/80 to-transparent p-4">
+                      <span className="text-white text-sm font-medium px-3 py-1 bg-nature-temple/90 rounded-full shadow-lg">
                         {destination.category}
                       </span>
                     </div>
                   </div>
-                  <div className="p-4">
-                    <div className="flex justify-between items-start mb-2">
-                      <h3 className="font-medium text-lg">{destination.name}</h3>
-                      <span className="text-sm text-muted-foreground">{destination.properties} properties</span>
+                  <div className="p-5">
+                    <div className="flex justify-between items-start mb-3">
+                      <h3 className="font-bold text-lg text-nature-earth group-hover:text-nature-temple transition-colors">{destination.name}</h3>
+                      <span className="text-sm text-nature-stone bg-nature-sky/30 px-2 py-1 rounded-full">{destination.properties} sacred stays</span>
                     </div>
-                    <div className="flex items-center text-muted-foreground text-sm mb-3">
-                      <MapPin className="h-3 w-3 mr-1" />
+                    <div className="flex items-center text-nature-stone text-sm mb-3">
+                      <MapPin className="h-4 w-4 mr-1 text-nature-temple" />
                       {destination.country}
                     </div>
-                    <p className="text-sm text-gray-600 mb-4">{destination.description}</p>
+                    <p className="text-sm text-nature-stone mb-4 leading-relaxed">{destination.description}</p>
                     <Button 
-                      className="w-full bg-booking-blue hover:bg-booking-darkBlue"
+                      className="w-full bg-gradient-to-r from-nature-temple to-nature-sunset hover:from-nature-sunset hover:to-nature-leaf text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] rounded-lg"
                       onClick={(e) => {
                         e.stopPropagation();
                         navigate(destination.urlSlug ? `/destination/${destination.urlSlug}` : "/see-availability");
                       }}
                     >
                       <Landmark className="h-4 w-4 mr-2" />
-                      {destination.urlSlug ? "View Destination" : "View Properties"}
+                      {destination.urlSlug ? "Explore Sacred Place" : "View Sacred Stays"}
                     </Button>
                   </div>
                 </CardContent>

@@ -64,11 +64,22 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				booking: {
-					blue: '#0071c2',
-					yellow: '#febb02',
-					lightBlue: '#f2f6fa',
-					darkBlue: '#003b95',
-					green: '#006600'
+					blue: 'hsl(var(--primary))',
+					yellow: 'hsl(var(--primary-glow))',
+					lightBlue: 'hsl(var(--muted))',
+					darkBlue: 'hsl(var(--secondary))',
+					green: 'hsl(var(--accent))'
+				},
+				nature: {
+					earth: 'hsl(var(--nature-earth))',
+					stone: 'hsl(var(--nature-stone))',
+					leaf: 'hsl(var(--nature-leaf))',
+					sky: 'hsl(var(--nature-sky))',
+					sunset: 'hsl(var(--nature-sunset))',
+					temple: 'hsl(var(--nature-temple))',
+					primary: 'hsl(var(--primary))',
+					secondary: 'hsl(var(--secondary))',
+					accent: 'hsl(var(--accent))'
 				},
 				travel: {
 					blue: 'hsl(var(--primary))',
