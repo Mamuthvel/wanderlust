@@ -186,106 +186,110 @@
 
 @layer base {
   :root {
-    /* Premium nature-inspired Tiruvannamalai theme */
-    --background: 45 15% 98%;
-    --foreground: 25 25% 15%;
+    /* Luxury + Safety Color Palette */
+    --background: 60 29% 97%; /* Ivory White */
+    --foreground: 0 0% 13%; /* Charcoal Black */
 
-    --card: 0 0% 100%;
-    --card-foreground: 25 25% 15%;
+    --card: 60 29% 97%;
+    --card-foreground: 0 0% 13%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 25 25% 15%;
+    --popover: 60 29% 97%;
+    --popover-foreground: 0 0% 13%;
 
-    /* Sacred mountain gold - primary */
-    --primary: 40 95% 45%;
-    --primary-foreground: 0 0% 100%;
-    --primary-glow: 42 100% 65%;
+    /* Deep Emerald Green - primary */
+    --primary: 174 100% 15%;
+    --primary-foreground: 60 29% 97%;
+    --primary-glow: 174 50% 35%;
 
-    /* Temple stone - secondary */
-    --secondary: 25 30% 35%;
-    --secondary-foreground: 0 0% 100%;
+    /* Royal Navy Blue - secondary */
+    --secondary: 244 63% 29%;
+    --secondary-foreground: 60 29% 97%;
 
-    /* Soft earth tones */
-    --muted: 45 15% 95%;
-    --muted-foreground: 25 15% 45%;
+    /* Warm Taupe - muted */
+    --muted: 30 23% 69%;
+    --muted-foreground: 0 0% 13%;
 
-    /* Sacred green - accent */
-    --accent: 140 40% 45%;
-    --accent-foreground: 0 0% 100%;
+    /* Champagne Gold - accent */
+    --accent: 50 69% 53%;
+    --accent-foreground: 0 0% 13%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive-foreground: 60 29% 97%;
 
-    /* Natural borders and inputs */
-    --border: 45 15% 88%;
-    --input: 0 0% 100%;
-    --ring: 40 95% 45%;
+    /* Luxury borders and inputs */
+    --border: 30 23% 85%;
+    --input: 60 29% 97%;
+    --ring: 174 100% 15%;
 
     --radius: 1rem;
 
-    /* Nature sanctuary colors */
-    --nature-earth: 25 45% 35%;
-    --nature-stone: 30 20% 55%;
-    --nature-leaf: 140 40% 45%;
-    --nature-sky: 200 50% 85%;
-    --nature-sunset: 15 85% 65%;
-    --nature-temple: 40 95% 45%;
+    /* Luxury theme colors */
+    --luxury-emerald: 174 100% 15%; /* Deep Emerald Green */
+    --luxury-navy: 244 63% 29%; /* Royal Navy Blue */
+    --luxury-charcoal: 0 0% 13%; /* Charcoal Black */
+    --luxury-gold: 50 69% 53%; /* Champagne Gold */
+    --luxury-ivory: 60 29% 97%; /* Ivory White */
+    --luxury-taupe: 30 23% 69%; /* Warm Taupe */
+    --safety-sage: 89 39% 66%; /* Soft Sage Green */
+    --safety-sky: 196 92% 85%; /* Sky Blue Mist */
 
-    --sidebar-background: 45 15% 98%;
-    --sidebar-foreground: 25 25% 15%;
-    --sidebar-primary: 40 95% 45%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 45 15% 95%;
-    --sidebar-accent-foreground: 25 25% 15%;
-    --sidebar-border: 45 15% 88%;
-    --sidebar-ring: 40 95% 45%;
+    --sidebar-background: 60 29% 97%;
+    --sidebar-foreground: 0 0% 13%;
+    --sidebar-primary: 174 100% 15%;
+    --sidebar-primary-foreground: 60 29% 97%;
+    --sidebar-accent: 30 23% 85%;
+    --sidebar-accent-foreground: 0 0% 13%;
+    --sidebar-border: 30 23% 85%;
+    --sidebar-ring: 174 100% 15%;
   }
 
   .dark {
-    --background: 25 25% 8%;
-    --foreground: 45 15% 95%;
+    --background: 0 0% 13%; /* Charcoal Black */
+    --foreground: 60 29% 97%; /* Ivory White */
 
-    --card: 25 25% 12%;
-    --card-foreground: 45 15% 95%;
+    --card: 0 0% 18%;
+    --card-foreground: 60 29% 97%;
 
-    --popover: 25 25% 12%;
-    --popover-foreground: 45 15% 95%;
+    --popover: 0 0% 18%;
+    --popover-foreground: 60 29% 97%;
 
-    --primary: 42 100% 65%;
-    --primary-foreground: 25 25% 8%;
-    --primary-glow: 45 100% 75%;
+    --primary: 174 70% 25%; /* Lighter Emerald for dark mode */
+    --primary-foreground: 60 29% 97%;
+    --primary-glow: 174 50% 35%;
 
-    --secondary: 25 30% 45%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 244 50% 40%; /* Lighter Navy for dark mode */
+    --secondary-foreground: 60 29% 97%;
 
-    --muted: 25 25% 18%;
-    --muted-foreground: 45 15% 65%;
+    --muted: 30 15% 25%;
+    --muted-foreground: 60 20% 80%;
 
-    --accent: 140 40% 55%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 50 80% 65%; /* Brighter Gold for dark mode */
+    --accent-foreground: 0 0% 13%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive-foreground: 60 29% 97%;
 
-    --border: 25 25% 20%;
-    --input: 25 25% 20%;
-    --ring: 42 100% 65%;
+    --border: 0 0% 25%;
+    --input: 0 0% 25%;
+    --ring: 174 70% 25%;
 
-    --nature-earth: 25 45% 25%;
-    --nature-stone: 30 20% 45%;
-    --nature-leaf: 140 40% 35%;
-    --nature-sky: 200 50% 25%;
-    --nature-sunset: 15 85% 55%;
-    --nature-temple: 42 100% 65%;
+    --luxury-emerald: 174 70% 25%;
+    --luxury-navy: 244 50% 40%;
+    --luxury-charcoal: 0 0% 13%;
+    --luxury-gold: 50 80% 65%;
+    --luxury-ivory: 60 29% 97%;
+    --luxury-taupe: 30 15% 35%;
+    --safety-sage: 89 30% 50%;
+    --safety-sky: 196 70% 70%;
 
-    --sidebar-background: 25 25% 8%;
-    --sidebar-foreground: 45 15% 95%;
-    --sidebar-primary: 42 100% 65%;
-    --sidebar-primary-foreground: 25 25% 8%;
-    --sidebar-accent: 25 25% 18%;
-    --sidebar-accent-foreground: 45 15% 95%;
-    --sidebar-border: 25 25% 20%;
-    --sidebar-ring: 42 100% 65%;
+    --sidebar-background: 0 0% 13%;
+    --sidebar-foreground: 60 29% 97%;
+    --sidebar-primary: 174 70% 25%;
+    --sidebar-primary-foreground: 60 29% 97%;
+    --sidebar-accent: 0 0% 25%;
+    --sidebar-accent-foreground: 60 29% 97%;
+    --sidebar-border: 0 0% 25%;
+    --sidebar-ring: 174 70% 25%;
   }
 }
 

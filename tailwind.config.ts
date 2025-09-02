@@ -63,37 +63,24 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
+				luxury: {
+					emerald: 'hsl(var(--luxury-emerald))',
+					navy: 'hsl(var(--luxury-navy))',
+					charcoal: 'hsl(var(--luxury-charcoal))',
+					gold: 'hsl(var(--luxury-gold))',
+					ivory: 'hsl(var(--luxury-ivory))',
+					taupe: 'hsl(var(--luxury-taupe))'
+				},
+				safety: {
+					sage: 'hsl(var(--safety-sage))',
+					sky: 'hsl(var(--safety-sky))'
+				},
 				booking: {
 					blue: 'hsl(var(--primary))',
-					yellow: 'hsl(var(--primary-glow))',
-					lightBlue: 'hsl(var(--muted))',
+					yellow: 'hsl(var(--accent))',
+					lightBlue: 'hsl(var(--safety-sky))',
 					darkBlue: 'hsl(var(--secondary))',
-					green: 'hsl(var(--accent))'
-				},
-				nature: {
-					earth: 'hsl(var(--nature-earth))',
-					stone: 'hsl(var(--nature-stone))',
-					leaf: 'hsl(var(--nature-leaf))',
-					sky: 'hsl(var(--nature-sky))',
-					sunset: 'hsl(var(--nature-sunset))',
-					temple: 'hsl(var(--nature-temple))',
-					primary: 'hsl(var(--primary))',
-					secondary: 'hsl(var(--secondary))',
-					accent: 'hsl(var(--accent))'
-				},
-				travel: {
-					blue: 'hsl(var(--primary))',
-					blueGlow: 'hsl(var(--primary-glow))',
-					sunset: 'hsl(var(--secondary))',
-					ocean: 'hsl(var(--accent))',
-					sand: 'hsl(43 74% 66%)',
-					coral: 'hsl(16 90% 66%)',
-					forest: 'hsl(142 72% 29%)',
-					sky: 'hsl(200 94% 86%)',
-					purple: 'hsl(270 91% 65%)',
-					teal: 'hsl(172 66% 50%)',
-					mint: 'hsl(160 84% 39%)',
-					lavender: 'hsl(280 69% 88%)'
+					green: 'hsl(var(--safety-sage))'
 				}
 			},
 			borderRadius: {
