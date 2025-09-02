@@ -153,17 +153,17 @@ const ExploreDestinations = () => {
       
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-nature-temple to-nature-sunset bg-clip-text text-transparent">Sacred Destinations</h1>
-          <p className="text-nature-stone text-lg">Discover spiritual places around the world for your sacred journey</p>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-luxury-emerald to-luxury-gold bg-clip-text text-transparent">Sacred Destinations</h1>
+          <p className="text-luxury-taupe text-lg">Discover spiritual places around the world for your sacred journey</p>
         </div>
         
         {/* Search and Filter */}
-        <div className="glass border-2 border-nature-temple/20 rounded-2xl shadow-xl p-6 mb-8 bg-gradient-to-br from-white/95 to-nature-sky/20">
+        <div className="glass border-2 border-luxury-emerald/20 rounded-2xl shadow-xl p-6 mb-8 bg-gradient-to-br from-white/95 to-safety-sky/20">
           <div className="flex flex-col md:flex-row gap-6">
             <div className="relative flex-grow">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-nature-stone h-4 w-4" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-luxury-taupe h-4 w-4" />
               <Input 
-                className="pl-10 bg-white/95 border-nature-stone/30 focus:border-nature-temple focus:ring-2 focus:ring-nature-temple/20 rounded-lg shadow-md transition-all duration-300 hover:scale-[1.02]" 
+                className="pl-10 bg-white/95 border-luxury-taupe/30 focus:border-luxury-emerald focus:ring-2 focus:ring-luxury-emerald/20 rounded-lg shadow-md transition-all duration-300 hover:scale-[1.02]" 
                 placeholder="Search sacred destinations..." 
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -176,8 +176,8 @@ const ExploreDestinations = () => {
                   variant={selectedCategory === category ? "default" : "outline"}
                   onClick={() => setSelectedCategory(category)}
                   className={selectedCategory === category 
-                    ? "bg-nature-temple hover:bg-nature-sunset text-white shadow-lg" 
-                    : "border-nature-stone/30 text-nature-earth hover:border-nature-temple hover:text-nature-temple"
+                    ? "bg-luxury-emerald hover:bg-luxury-navy text-white shadow-lg" 
+                    : "border-luxury-taupe/30 text-luxury-charcoal hover:border-luxury-emerald hover:text-luxury-emerald"
                   }
                 >
                   {category}
@@ -193,7 +193,7 @@ const ExploreDestinations = () => {
             filteredDestinations.map((destination) => (
               <Card 
                 key={destination.id} 
-                className="overflow-hidden hover:-translate-y-3 hover:scale-[1.02] transition-all duration-500 cursor-pointer glass-card border-nature-stone/20 bg-gradient-to-br from-white to-nature-sky/10 shadow-lg hover:shadow-2xl group"
+                className="overflow-hidden hover:-translate-y-3 hover:scale-[1.02] transition-all duration-500 cursor-pointer glass-card border-luxury-taupe/20 bg-gradient-to-br from-white to-safety-sky/10 shadow-lg hover:shadow-2xl group"
                 onClick={() => navigate(destination.urlSlug ? `/destination/${destination.urlSlug}` : "/see-availability")}
               >
                 <CardContent className="p-0">
@@ -203,24 +203,24 @@ const ExploreDestinations = () => {
                       alt={destination.name}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
-                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-nature-earth/80 to-transparent p-4">
-                      <span className="text-white text-sm font-medium px-3 py-1 bg-nature-temple/90 rounded-full shadow-lg">
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-luxury-charcoal/80 to-transparent p-4">
+                      <span className="text-white text-sm font-medium px-3 py-1 bg-luxury-emerald/90 rounded-full shadow-lg">
                         {destination.category}
                       </span>
                     </div>
                   </div>
                   <div className="p-5">
                     <div className="flex justify-between items-start mb-3">
-                      <h3 className="font-bold text-lg text-nature-earth group-hover:text-nature-temple transition-colors">{destination.name}</h3>
-                      <span className="text-sm text-nature-stone bg-nature-sky/30 px-2 py-1 rounded-full">{destination.properties} sacred stays</span>
+                      <h3 className="font-bold text-lg text-luxury-charcoal group-hover:text-luxury-emerald transition-colors">{destination.name}</h3>
+                      <span className="text-sm text-luxury-taupe bg-safety-sky/30 px-2 py-1 rounded-full">{destination.properties} sacred stays</span>
                     </div>
-                    <div className="flex items-center text-nature-stone text-sm mb-3">
-                      <MapPin className="h-4 w-4 mr-1 text-nature-temple" />
+                    <div className="flex items-center text-luxury-taupe text-sm mb-3">
+                      <MapPin className="h-4 w-4 mr-1 text-luxury-emerald" />
                       {destination.country}
                     </div>
-                    <p className="text-sm text-nature-stone mb-4 leading-relaxed">{destination.description}</p>
+                    <p className="text-sm text-luxury-taupe mb-4 leading-relaxed">{destination.description}</p>
                     <Button 
-                      className="w-full bg-gradient-to-r from-nature-temple to-nature-sunset hover:from-nature-sunset hover:to-nature-leaf text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] rounded-lg"
+                      className="w-full bg-gradient-to-r from-luxury-emerald to-luxury-gold hover:from-luxury-gold hover:to-safety-sage text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] rounded-lg"
                       onClick={(e) => {
                         e.stopPropagation();
                         navigate(destination.urlSlug ? `/destination/${destination.urlSlug}` : "/see-availability");

@@ -3,22 +3,22 @@ import { Link } from "react-router-dom";
 import { Mail, Phone, Instagram, Facebook, Twitter, Linkedin } from "lucide-react";
 
 const FooterLink = ({ href, children }) => (
-  <Link to={href} className="text-nature-sky hover:text-nature-temple transition-colors duration-300 hover:scale-105 inline-block">
+  <Link to={href} className="text-safety-sky hover:text-luxury-gold transition-colors duration-300 hover:scale-105 inline-block">
     {children}
   </Link>
 );
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-br from-nature-earth to-nature-stone text-white py-16 mt-10">
+    <footer className="bg-gradient-to-br from-luxury-emerald to-luxury-navy text-white py-16 mt-10">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="font-bold text-xl mb-4 bg-gradient-to-r from-nature-temple to-nature-sunset bg-clip-text text-transparent">
+            <h3 className="font-bold text-xl mb-4 bg-gradient-to-r from-luxury-gold to-luxury-taupe bg-clip-text text-transparent">
               WanderStay<br />
-              <span className="text-sm font-bold flex text-nature-sky">Tiruvannamalai</span>
+              <span className="text-sm font-bold flex text-safety-sky">Tiruvannamalai</span>
             </h3> 
-            <p className="text-nature-sky mb-4 leading-relaxed">
+            <p className="text-safety-sky mb-4 leading-relaxed">
               Experience the spiritual essence of Tiruvannamalai with premium accommodations near the sacred Arunachala Mountain.
             </p>
             <div className="flex space-x-4">
@@ -63,19 +63,19 @@ const Footer = () => {
             <h4 className="font-medium text-base mb-4">Contact</h4>
             <ul className="space-y-2">
               <li className="flex items-center">
-                <Mail size={16} className="mr-2 text-gray-500" />
+                <Mail size={16} className="mr-2 text-luxury-taupe" />
                 <a
                   href="mailto:maxthvel@gmail.com?subject=Hello%20Max"
-                  className="text-gray-500 hover:underline"
+                  className="text-luxury-taupe hover:text-luxury-gold hover:underline transition-colors"
                 >
                   maxthvel@gmail.com
                 </a>
               </li>
               <li className="flex items-center">
-                <Phone size={16} className="mr-2 text-gray-500" />
+                <Phone size={16} className="mr-2 text-luxury-taupe" />
                 <a
                   href="tel:+918778860001"
-                  className="text-gray-500 hover:underline"
+                  className="text-luxury-taupe hover:text-luxury-gold hover:underline transition-colors"
                 >
                   +91 8778860001
                 </a>
@@ -89,8 +89,8 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-gray-200 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-500 text-sm">
+        <div className="border-t border-luxury-taupe/30 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-luxury-taupe text-sm">
             &copy; {new Date().getFullYear()} WanderStay Inc. All rights reserved.
           </p>
 
